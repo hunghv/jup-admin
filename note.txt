@@ -1,0 +1,15 @@
+yarn create react-app jito-ui --template typescript
+
+npm install react-router-dom react-scripts
+npm install @mui/material @emotion/react @emotion/styled
+npm install @mui/material @mui/styled-engine-sc styled-components 
+npm install @fontsource/roboto
+npm install @mui/icons-material
+npm i prettier --save-dev
+npm i redux react-redux axios @reduxjs/toolkit
+
+
+
+// Json server
+npm install json-server
+npx json-server db.json --port 4000
