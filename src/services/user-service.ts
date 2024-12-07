@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { User as UserFirebase } from 'firebase/auth';
+import { User, User as UserFirebase } from 'firebase/auth';
 import apiClient from '../utils/axiosConfig';
+import { toastSuccess, toastError } from '../common';
 
 export const fetchUsers = createAsyncThunk(
   'users/fetchUsers',
@@ -45,6 +46,21 @@ export const login = createAsyncThunk('users/login', async () => {
   });
   return response.data.data;
 });
+
+
+export const registerUser = createAsyncThunk(
+  'auth/registerUser',
+  async (userData: User, { rejectWithValue }) => {
+    try {
+      const response = await apiClient.post(`/auth`, userData);
+      toastSuccess('Registration successful');
+      return response.data;
+    } catch (error: any) {
+      toastError(error.response.data || 'Registration failed');
+      return rejectWithValue(error.response.data || 'Registration failed');
+    }
+  }
+);
 
 export const updateUser = createAsyncThunk(
   'users/updateUser',

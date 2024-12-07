@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { User } from 'firebase/auth';
 import apiClient from '../utils/axiosConfig';
 import { toastError, toastSuccess } from '../common';
-import { login } from '../services';
+import { login, registerUser } from '../services';
 
 interface RegisterState {
   loading: boolean;
@@ -21,20 +21,6 @@ const initialState: RegisterState = {
   user: {},
   loginTrigger: false,
 };
-
-export const registerUser = createAsyncThunk(
-  'auth/registerUser',
-  async (userData: User, { rejectWithValue }) => {
-    try {
-      const response = await apiClient.post(`/auth`, userData);
-      toastSuccess('Registration successful');
-      return response.data;
-    } catch (error: any) {
-      toastError(error.response.data || 'Registration failed');
-      return rejectWithValue(error.response.data || 'Registration failed');
-    }
-  }
-);
 
 const authSlice = createSlice({
   name: 'auth',
@@ -64,7 +50,7 @@ const authSlice = createSlice({
         state.isAuthenticated = true;
         state.error = null;
         state.loading = false;
-        sessionStorage.setItem('UserInformation', JSON.stringify(state.user));
+        localStorage.setItem('UserInformation', JSON.stringify(state.user));
       })
       .addCase(login.rejected, (state, action) => {
         toastError('Login đã sảy ra lỗi!');
