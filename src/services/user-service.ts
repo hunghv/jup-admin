@@ -27,7 +27,10 @@ export const fetchUsers = createAsyncThunk(
 export const createUser = createAsyncThunk(
   'users/createUser',
   async (user: UserFirebase) => {
-    const response = await apiClient.post(`/api/v1/user`, user);
+    const response = await apiClient.post(
+      `/api/v1/users/create-firebase`,
+      user
+    );
     return response.data;
   }
 );
@@ -37,7 +40,7 @@ export const logout = createAsyncThunk('users/logout', async () => {
 });
 
 export const login = createAsyncThunk('users/login', async () => {
-  const response = await apiClient.post(`/api/v1/users/`, {
+  const response = await apiClient.post(`/api/v1/auth/login`, {
     token: localStorage.getItem('accessToken'),
   });
   return response.data.data;

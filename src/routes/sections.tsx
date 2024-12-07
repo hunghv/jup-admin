@@ -18,6 +18,7 @@ import ResetPassword from '../components/authentication/ResetPassword';
 import Logout from '../components/authentication/Logout';
 import NotFound from '../layout/not-found/NotFound';
 import MainLayout from '../layout/main/MainLayout';
+import SignUp from '../components/authentication/Signup';
 
 // const HomePage = lazy(() => import('../pages/HomePage'));
 
@@ -105,6 +106,10 @@ export function Router() {
     {
       path: '403',
       element: <AccessDenied />,
+    },
+    {
+      path: 'sign-up',
+      element: <SignUp />,
     },
     {
       path: 'reset-password',

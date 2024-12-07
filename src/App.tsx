@@ -7,11 +7,11 @@ import { Router } from './routes/sections';
 function App() {
   return (
     <div>
-    <Provider store={store}>
-      <Router />
-    </Provider>
-    <ToastContainer />
-  </div>
+      <Provider store={store}>
+        <Router />
+      </Provider>
+      <ToastContainer />
+    </div>
   );
 }
 
