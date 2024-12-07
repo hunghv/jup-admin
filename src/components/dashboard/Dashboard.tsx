@@ -74,18 +74,6 @@ const products = [
   },
 ];
 
-const StyledBadge = styled(Badge)(({ theme }) => ({
-  '& .MuiBadge-badge': {
-    right: -8,
-    top: 8,
-    padding: '0 4px',
-    borderRadius: 6,
-    fontSize: '0.7rem',
-    backgroundColor: 'red',
-    color: 'white',
-  },
-}));
-
 const ProductCard = styled(Card)(({ theme }) => ({
   position: 'relative',
   overflow: 'hidden',

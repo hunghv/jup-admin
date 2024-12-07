@@ -37,7 +37,7 @@ export const logout = createAsyncThunk('users/logout', async () => {
 });
 
 export const login = createAsyncThunk('users/login', async () => {
-  const response = await apiClient.post(`/api/auth/login`, {
+  const response = await apiClient.post(`/api/v1/users/`, {
     token: localStorage.getItem('accessToken'),
   });
   return response.data.data;

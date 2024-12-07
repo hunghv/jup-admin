@@ -11,9 +11,9 @@ import {
   Stack,
 } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-import { SitemarkIcon, FacebookIcon, GoogleIcon } from './CustomIcons';
-import { auth, googleProvider, facebookProvider } from './firebaseConfig';
-import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { SitemarkIcon } from './CustomIcons';
+import { auth } from './firebaseConfig';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
 import { login } from '../../services';
@@ -158,16 +158,10 @@ function SignIn() {
               >
                 Sign In
               </Button>
-              <Typography sx={{ textAlign: 'center' }}>
-                Don’t have an account?{' '}
-                <span>
-                  <Link to="/sign-up">Get started</Link>
-                </span>
-              </Typography>
             </Box>
           </Box>
           <Divider>
-            <Typography sx={{ color: 'text.secondary' }}>or</Typography>
+            <Typography sx={{ color: 'text.secondary' }}></Typography>
           </Divider>
         </MuiCard>
       </SignUpContainer>
