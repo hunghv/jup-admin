@@ -1,7 +1,5 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { User } from 'firebase/auth';
-import apiClient from '../utils/axiosConfig';
-import { toastError, toastSuccess } from '../common';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { toastError } from '../common';
 import { login, registerUser } from '../services';
 
 interface RegisterState {

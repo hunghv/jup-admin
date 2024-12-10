@@ -83,9 +83,9 @@ function SignIn() {
 
       const accessToken = await response.user.getIdToken();
 
-      dispatch(login());
-
       localStorage.setItem('accessToken', accessToken);
+
+      dispatch(login());
     } catch (error: any) {
       setError(error.message);
     }
