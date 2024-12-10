@@ -11,7 +11,6 @@ function MainLayout() {
         p: 3,
         mt: 8,
         ml: 24,
-        width: { sm: `calc(100% - ${drawerWidth}px)` },
       }}
     >
       <Outlet />

@@ -18,8 +18,9 @@ apiClient.interceptors.request.use(
       config.headers['Authorization'] = `Bearer ${token}`;
     }
     config.headers['Access-Control-Allow-Origin'] = '*';
-    config.headers['Access-Control-Allow-Methods'] = 'GET,PUT,POST,DELETE,PATCH,OPTIONS';
-    
+    config.headers['Access-Control-Allow-Methods'] =
+      'GET,PUT,POST,DELETE,PATCH,OPTIONS';
+
     return config;
   },
   (error) => {

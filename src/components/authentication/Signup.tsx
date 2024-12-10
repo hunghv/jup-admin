@@ -2,10 +2,7 @@ import React, { useState } from 'react';
 import { styled } from '@mui/system';
 import { SitemarkIcon } from './CustomIcons';
 import { auth } from './firebaseConfig';
-import {
-  createUserWithEmailAndPassword,
-  updateProfile,
-} from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import {
   Button,
   FormControl,

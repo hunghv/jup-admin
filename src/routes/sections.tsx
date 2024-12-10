@@ -19,6 +19,8 @@ import Logout from '../components/authentication/Logout';
 import NotFound from '../layout/not-found/NotFound';
 import MainLayout from '../layout/main/MainLayout';
 import SignUp from '../components/authentication/Signup';
+import Topbar from '../layout/top-bar/Topbar';
+import LeftMenu from '../layout/nav-bar/LeftMenu';
 
 // const HomePage = lazy(() => import('../pages/HomePage'));
 
@@ -66,9 +68,23 @@ export function Router() {
         <Suspense fallback={renderFallback}>
           <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            {/* <Topbar></Topbar>
-            <Navbar></Navbar> */}
-            <MainLayout />
+            {/* Left Menu */}
+            <LeftMenu />
+            {/* Main Content */}
+            <Box
+              sx={{
+                flexGrow: 1,
+                backgroundColor: '#f8f9fa',
+                minHeight: '100vh',
+              }}
+            >
+              {/* Topbar */}
+              <Topbar />
+              {/* Dashboard Content */}
+              <Box sx={{ p: 3 }}>
+                <MainLayout />
+              </Box>
+            </Box>
           </Box>
         </Suspense>
       ),
