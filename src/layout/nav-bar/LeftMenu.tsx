@@ -4,17 +4,18 @@ import {
   List,
   ListItemIcon,
   ListItemText,
-  Divider,
-  Typography,
   ListItemButton,
   useTheme,
+  Toolbar,
 } from '@mui/material';
-import { ReactComponent as DashboardIcon } from "../../assets/icon/Dashboard_outlined.d5948258.svg";
-import  { ReactComponent as ShoppingCartIcon }  from  "../../assets/icon/Profile_outlined.c0a824be.svg";
-import  { ReactComponent as LocalMallIcon }  from  "../../assets/icon/Documentation_outlined.a4d63b9b.svg";
-import  { ReactComponent as PersonIcon }  from  "../../assets/icon/Email_outlined.c345fb38.svg";
-import  { ReactComponent as EmailIcon }  from  "../../assets/icon/Core_outlined.43f7583b.svg";
+import { ReactComponent as DashboardIcon } from '../../assets/icon/Dashboard_outlined.d5948258.svg';
+import { ReactComponent as ShoppingCartIcon } from '../../assets/icon/Profile_outlined.c0a824be.svg';
+import { ReactComponent as LocalMallIcon } from '../../assets/icon/Documentation_outlined.a4d63b9b.svg';
+import { ReactComponent as PersonIcon } from '../../assets/icon/Email_outlined.c345fb38.svg';
+import { ReactComponent as EmailIcon } from '../../assets/icon/Core_outlined.43f7583b.svg';
 import { useNavigate, useLocation } from 'react-router-dom';
+
+const drawerWidth = 240;
 
 const LeftMenu: React.FC = () => {
   const menuItems = [
@@ -35,23 +36,15 @@ const LeftMenu: React.FC = () => {
 
   return (
     <Box
+      component="nav"
       sx={{
-        width: 250,
-        height: '100vh',
+        width: { sm: drawerWidth },
+        flexShrink: { sm: 0 },
         backgroundColor: '#ffffff',
-        color: 'white',
-        padding: 2,
-        // fontFamily: 'Nunito, sans-serif'
       }}
+      aria-label="mailbox folders"
     >
-      <Typography
-        variant="h4"
-        gutterBottom
-        sx={{ color: '#F9A825', fontWeight: 'bold', height: '48px', marginLeft: '10' }}
-      >
-        Duke Team
-      </Typography>
-      <Divider sx={{ backgroundColor: '#424242', marginY: 2 }} />
+      <Toolbar />
       <List>
         {menuItems.map((item) => (
           <ListItemButton

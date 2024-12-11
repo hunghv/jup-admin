@@ -13,7 +13,7 @@ import {
   Badge,
   Button,
 } from '@mui/material';
-import EmailIcon from '@mui/icons-material/Email';
+import { ReactComponent as EmailIcon } from '../../assets/icon/messages.42686513.svg';
 
 const MessageDropdown: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
