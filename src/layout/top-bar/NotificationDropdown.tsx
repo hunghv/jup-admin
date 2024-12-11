@@ -11,8 +11,7 @@ import {
   ListItemAvatar,
   ListItemText,
 } from '@mui/material';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-
+import { ReactComponent as NotificationsIcon } from '../../assets/icon/notify.1de68cd8.svg';
 const NotificationDropdown: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);

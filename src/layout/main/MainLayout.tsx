@@ -6,7 +6,6 @@ function MainLayout() {
       component="main"
       sx={{
         flexGrow: 1,
-        p: 3,
         bgcolor: '#fafafa',
         minHeight: '100vh',
       }}
