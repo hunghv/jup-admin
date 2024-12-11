@@ -68,9 +68,7 @@ export function Router() {
         <Suspense fallback={renderFallback}>
           <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            {/* Left Menu */}
             <LeftMenu />
-            {/* Main Content */}
             <Box
               sx={{
                 flexGrow: 1,
@@ -78,9 +76,7 @@ export function Router() {
                 minHeight: '100vh',
               }}
             >
-              {/* Topbar */}
               <Topbar />
-              {/* Dashboard Content */}
               <Box sx={{ p: 3 }}>
                 <MainLayout />
               </Box>

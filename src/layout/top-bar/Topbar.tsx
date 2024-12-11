@@ -1,72 +1,29 @@
 import React from 'react';
-import {
-  AppBar,
-  Toolbar,
-  Box,
-  Button,
-  InputBase,
-  IconButton,
-  Badge,
-  Avatar,
-} from '@mui/material';
+import { AppBar, Toolbar, Box, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import MailIcon from '@mui/icons-material/Mail';
+import MessageDropdown from './MessageDropdown';
+import NotificationDropdown from './NotificationDropdown';
+import ProfileDropdown from './Profile';
 
-const Topbar: React.FC = () => {
+const Header: React.FC = () => {
   return (
-    <AppBar
-      position="static"
-      sx={{
-        backgroundColor: '#333',
-        color: 'white',
-        boxShadow: 'none',
-        padding: '0 20px',
-      }}
-    >
-      <Toolbar sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-        {/* Search Box */}
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            backgroundColor: '#444',
-            borderRadius: 2,
-            px: 2,
-            color: '#ccc',
-          }}
-        >
-          <SearchIcon sx={{ width: '24px', height: '24px' }} />
-          <InputBase
+    <AppBar position="sticky"  elevation={1} sx={{ padding: 1, background: 'linear-gradient(90deg, rgba(180,58,77,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%)' }}>
+      <Toolbar sx={{ justifyContent: 'flex-end' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <TextField
             placeholder="Search"
-            sx={{
-              ml: 1,
-              flex: 1,
-              color: 'white',
-              fontSize: '0.875rem',
+            size="small"
+            InputProps={{
+              startAdornment: <SearchIcon />,
             }}
           />
-        </Box>
-
-        {/* Icons Section */}
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <IconButton>
-            <Badge badgeContent={3} color="error">
-              <NotificationsIcon
-                sx={{ color: '#fff', width: '24px', height: '24px' }}
-              />
-            </Badge>
-          </IconButton>
-          <IconButton>
-            <Badge badgeContent={1} color="success">
-              <MailIcon sx={{ color: '#fff' }} />
-            </Badge>
-          </IconButton>
-          <Avatar sx={{ bgcolor: '#f39c12', color: 'white' }}>A</Avatar>
+          <NotificationDropdown />
+          <MessageDropdown />
+          <ProfileDropdown />
         </Box>
       </Toolbar>
     </AppBar>
   );
 };
 
-export default Topbar;
+export default Header;

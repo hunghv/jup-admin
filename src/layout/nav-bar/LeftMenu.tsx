@@ -1,175 +1,83 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
-  Drawer,
+  Box,
   List,
-  ListItem,
-  ListItemButton,
   ListItemIcon,
   ListItemText,
-  Collapse,
-  Typography,
   Divider,
-  Box,
+  Typography,
+  ListItemButton,
+  useTheme,
 } from '@mui/material';
-// import DashboardIcon from '@mui/icons-material/Dashboard';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import FolderIcon from '@mui/icons-material/Folder';
-import PersonIcon from '@mui/icons-material/Person';
-import EmailIcon from '@mui/icons-material/Email';
-import DescriptionIcon from '@mui/icons-material/Description';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { ReactComponent as DashboardIcon } from "../../assets/icon/Dashboard_outlined.d5948258.svg";
-const drawerWidth = 240;
+import  { ReactComponent as ShoppingCartIcon }  from  "../../assets/icon/Profile_outlined.c0a824be.svg";
+import  { ReactComponent as LocalMallIcon }  from  "../../assets/icon/Documentation_outlined.a4d63b9b.svg";
+import  { ReactComponent as PersonIcon }  from  "../../assets/icon/Email_outlined.c345fb38.svg";
+import  { ReactComponent as EmailIcon }  from  "../../assets/icon/Core_outlined.43f7583b.svg";
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const LeftMenu: React.FC = () => {
-  const [activeItem, setActiveItem] = useState<string>('Dashboard');
-  const [openSubmenu, setOpenSubmenu] = useState<boolean>(true);
-
-  const handleSubmenuToggle = () => {
-    setOpenSubmenu(!openSubmenu);
-  };
-
   const menuItems = [
-    { id: 'Dashboard', label: 'Dashboard', icon: <DashboardIcon/> },
-    { id: 'E-commerce', label: 'E-commerce', icon: <ShoppingCartIcon /> },
-    { id: 'Package', label: 'Package', icon: <FolderIcon /> },
-    { id: 'Profile', label: 'Profile', icon: <PersonIcon /> },
-    { id: 'Email', label: 'Email', icon: <EmailIcon /> },
-    { id: 'Documentation', label: 'Documentation', icon: <DescriptionIcon /> },
+    { name: 'Dashboard', icon: <DashboardIcon />, path: '/' },
+    { name: 'User', icon: <ShoppingCartIcon />, path: '/user' },
+    { name: 'Course', icon: <LocalMallIcon />, path: '/course' },
+    { name: 'Chat', icon: <PersonIcon />, path: '/chat' },
+    { name: 'News', icon: <EmailIcon />, path: '/news' },
   ];
 
+  const navigate = useNavigate();
+  const theme = useTheme();
+  const location = useLocation();
+
+  function handleNavigation(path: string): void {
+    navigate(path);
+  }
+
   return (
-    <Drawer
-      variant="permanent"
+    <Box
       sx={{
-        width: drawerWidth,
-        flexShrink: 0,
-        '& .MuiDrawer-paper': {
-          width: drawerWidth,
-          boxSizing: 'border-box',
-          backgroundColor: '#f9f9f9',
-        },
+        width: 250,
+        height: '100vh',
+        backgroundColor: '#ffffff',
+        color: 'white',
+        padding: 2,
+        // fontFamily: 'Nunito, sans-serif'
       }}
     >
-      {/* Header */}
-      <Box
-        sx={{
-          backgroundColor: '#f39c12',
-          textAlign: 'center',
-          padding: '16px 0',
-        }}
+      <Typography
+        variant="h4"
+        gutterBottom
+        sx={{ color: '#F9A825', fontWeight: 'bold', height: '48px', marginLeft: '10' }}
       >
-        <Typography
-          variant="h6"
-          sx={{
-            color: 'white',
-            fontWeight: 'bold',
-            textTransform: 'uppercase',
-          }}
-        >
-          Flatlogic One
-        </Typography>
-      </Box>
-      <Divider />
-
-      {/* Main Menu */}
+        Duke Team
+      </Typography>
+      <Divider sx={{ backgroundColor: '#424242', marginY: 2 }} />
       <List>
-        <Typography
-          variant="body2"
-          sx={{ px: 2, mt: 2, color: '#6c757d', fontWeight: 'bold' }}
-        >
-          APP
-        </Typography>
         {menuItems.map((item) => (
-          <ListItem
-            key={item.id}
-            disablePadding
-            onClick={() => setActiveItem(item.id)}
+          <ListItemButton
+            key={item.name}
+            onClick={() => handleNavigation(item.path)}
+            sx={{
+              backgroundColor:
+                location.pathname === item.path ? '#e3c48b' : 'inherit',
+              color: location.pathname === item.path ? 'white' : 'black',
+              borderRadius: 1,
+              '&:hover': {
+                backgroundColor:
+                  location.pathname === item.path
+                    ? theme.palette.warning.light
+                    : '#424242',
+              },
+              padding: 2,
+              marginBottom: 1,
+            }}
           >
-            <ListItemButton
-              sx={{
-                backgroundColor: activeItem === item.id ? '#ffe0b2' : 'inherit',
-                color: activeItem === item.id ? 'white' : '#6c757d',
-                '&:hover': {
-                  backgroundColor: '#ffe0b2',
-                  color: '#f39c12',
-                },
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  color: activeItem === item.id ? 'white' : '#f39c12',
-                  minWidth: '40px',
-                }}
-              >
-                {item.icon}
-              </ListItemIcon>
-              <ListItemText primary={item.label} />
-            </ListItemButton>
-          </ListItem>
+            <ListItemIcon sx={{ color: 'white' }}>{item.icon}</ListItemIcon>
+            <ListItemText primary={item.name} />
+          </ListItemButton>
         ))}
-
-        {/* Submenu Example */}
-        <ListItem disablePadding>
-          <ListItemButton onClick={handleSubmenuToggle}>
-            <ListItemIcon>
-              <FolderIcon sx={{ color: '#f39c12' }} />
-            </ListItemIcon>
-            <ListItemText primary="UI Elements" />
-            {openSubmenu ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          </ListItemButton>
-        </ListItem>
-        <Collapse in={openSubmenu} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem disablePadding>
-              <ListItemButton sx={{ pl: 4 }}>
-                <ListItemText primary="Notifications" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton sx={{ pl: 4 }}>
-                <ListItemText primary="Charts" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton sx={{ pl: 4 }}>
-                <ListItemText primary="Icons" />
-              </ListItemButton>
-            </ListItem>
-          </List>
-        </Collapse>
       </List>
-      <Divider />
-
-      {/* Footer Menu */}
-      <List>
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <PersonIcon sx={{ color: '#f39c12' }} />
-            </ListItemIcon>
-            <ListItemText primary="Settings" />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <PersonIcon sx={{ color: '#f39c12' }} />
-            </ListItemIcon>
-            <ListItemText primary="Account" />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <PersonIcon sx={{ color: '#f39c12' }} />
-            </ListItemIcon>
-            <ListItemText primary="Logout" />
-          </ListItemButton>
-        </ListItem>
-      </List>
-    </Drawer>
+    </Box>
   );
 };
 
