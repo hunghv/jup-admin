@@ -9,9 +9,10 @@ import {
   Divider,
   ListItemIcon,
 } from '@mui/material';
-import SettingsIcon from '@mui/icons-material/Settings';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import LogoutIcon from '@mui/icons-material/Logout';
+import { ReactComponent as SettingsIcon } from '../../assets/icon/Settings_outlined.afa5d5f8.svg';
+import { ReactComponent as AccountCircleIcon } from '../../assets/icon/Profile_outlined.c0a824be.svg';
+import { ReactComponent as LogoutIcon } from '../../assets/icon/logout.f0f095ef.svg';
+import { useNavigate } from 'react-router-dom';
 
 const ProfileDropdown: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -24,6 +25,13 @@ const ProfileDropdown: React.FC = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const navigate = useNavigate();
+
+  function handleMenuClose(path: string): void {
+    setAnchorEl(null);
+    navigate(path);
+  }
 
   return (
     <Box>
@@ -56,19 +64,19 @@ const ProfileDropdown: React.FC = () => {
           </Typography>
         </Box>
         <Divider />
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => handleMenuClose('/profile/security')}>
           <ListItemIcon>
             <SettingsIcon fontSize="small" />
           </ListItemIcon>
           <Typography variant="body1">Settings</Typography>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => handleMenuClose('/profile/account')}>
           <ListItemIcon>
             <AccountCircleIcon fontSize="small" />
           </ListItemIcon>
           <Typography variant="body1">Account</Typography>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => handleMenuClose('/logout')}>
           <ListItemIcon>
             <LogoutIcon fontSize="small" />
           </ListItemIcon>

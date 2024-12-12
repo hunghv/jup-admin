@@ -21,6 +21,10 @@ import MainLayout from '../layout/main/MainLayout';
 import SignUp from '../components/authentication/Signup';
 import Topbar from '../layout/top-bar/Topbar';
 import LeftMenu from '../layout/nav-bar/LeftMenu';
+import AccountComponent from '../components/profiles/AccountComponent';
+import NotificationComponent from '../components/profiles/NotificationComponent';
+import ProfilePage from '../components/profiles/ProfilePage';
+import Security from '../components/profiles/SecurityComponent';
 
 // const HomePage = lazy(() => import('../pages/HomePage'));
 
@@ -104,6 +108,15 @@ export function Router() {
         {
           path: 'news',
           element: <News />,
+        },
+        {
+          path: 'profile',
+          element: <ProfilePage />,
+          children: [
+            { path: 'account', element: <AccountComponent /> },
+            { path: 'notifications', element: <NotificationComponent /> },
+            { path: 'security', element: <Security /> },
+          ],
         },
       ],
     },
