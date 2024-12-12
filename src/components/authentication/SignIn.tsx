@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
 import { login } from '../../services';
 import { getUserInformation } from '../../common/localStorageHelper';
+import { setCurrentUser } from '../../redux/userSlice';
 
 const SignUpContainer = styled(Stack)(({ theme }) => ({
   height: 'calc((1 - var(--template-frame-height, 0)) * 100dvh)',
@@ -67,14 +68,6 @@ function SignIn() {
   const [error, setError] = useState('');
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
-  const { isAuthenticated } = useSelector((state: RootState) => state.users);
-  const [trigger, setTrigger] = useState(false);
-  useEffect(() => {
-    const user = getUserInformation();
-    if (user) {
-      setTrigger(true);
-    }
-  }, [isAuthenticated]);
 
   const handleEmailLogin = async (event: any) => {
     try {
@@ -85,15 +78,16 @@ function SignIn() {
 
       localStorage.setItem('accessToken', accessToken);
 
-      dispatch(login());
+      const result = await dispatch(login());
+
+      if (login.fulfilled.match(result)) {
+        dispatch(setCurrentUser(result.payload));
+        navigate('/', { replace: true });
+      }
     } catch (error: any) {
       setError(error.message);
     }
   };
-
-  if (trigger) {
-    navigate('/', { replace: true });
-  }
 
   return (
     <div>

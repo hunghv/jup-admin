@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   Avatar,
   Box,
@@ -6,26 +6,80 @@ import {
   Divider,
   MenuItem,
   Paper,
+  Select,
   TextField,
   Typography,
 } from '@mui/material';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate } from 'react-router-dom';
+import dayjs from 'dayjs';
+import { useDispatch } from 'react-redux';
+import { getUserInformation } from '../../common/localStorageHelper';
+import { AppDispatch } from '../../redux/store';
+import { updateUser } from '../../services';
+
+const schema = yup.object({
+  fullname: yup.string().required('Full name is required'),
+  email: yup.string().email('Invalid email').required('Email is required'),
+  phone: yup.string().nullable(),
+  address1: yup.string().nullable(),
+  address2: yup.string().nullable(),
+  country: yup.string().nullable(),
+  dateOfBirth: yup.date().required('Date of Birth is required').nullable(),
+  profilePictureUrl: yup.string().url().nullable(),
+  role: yup.string().required('Role is required'),
+  accountStatus: yup.string().required('Account status is required'),
+  isActive: yup.boolean().required(),
+  bio: yup.string().nullable(),
+});
+
+const currentYear = dayjs();
 
 const AccountComponent: React.FC = () => {
-  const user = useSelector((state: RootState) => state.users.user);
-  //   const dispatch: AppDispatch = useDispatch();
-  const [formValues, setFormValues] = useState(user);
+  const userData = getUserInformation();
+  const navigate = useNavigate();
+  const dispatch: AppDispatch = useDispatch();
+  console.log(userData);
+  if (!userData) {
+    navigate('/sign-in');
+  }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormValues((prev: any) => ({ ...prev, [name]: value }));
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  
+  useEffect(() => {
+    if (userData) {
+      setValue('fullname', userData.fullname);
+      setValue('email', userData.email);
+      setValue('phone', userData.phone);
+      setValue('address1', userData.address1);
+      setValue('address2', userData.address2);
+      setValue('country', userData.country);
+      setValue('dateOfBirth', userData.dateOfBirth);
+      setValue('profilePictureUrl', userData.profilePictureUrl);
+      setValue('role', userData.role);
+      setValue('accountStatus', userData.accountStatus);
+      setValue('isActive', userData.isActive);
+      setValue('bio', userData.bio);
+    }
+  }, [userData, setValue]);
+
+  const onFormSubmit: SubmitHandler<any> = (data: any) => {
+    dispatch(updateUser({ ...data, id: userData.id }));
   };
 
-  const handleSubmit = () => {
-    // dispatch(updateUser(formValues));
-    alert('Profile updated successfully!');
-  };
   return (
     <Box sx={{ width: { xs: '100%', md: '75%' } }}>
       <Paper
@@ -43,8 +97,8 @@ const AccountComponent: React.FC = () => {
         <Divider sx={{ mb: 3 }} />
         <Box display="flex" alignItems="center" gap={2} mb={3}>
           <Avatar
-            alt={user.name}
-            src={user.profilePicture}
+            alt={userData?.fullname}
+            src={userData?.profilePicture}
             sx={{ width: 80, height: 80, border: '3px solid #e0e0e0' }}
           />
           <Button variant="text" color="error" sx={{ fontWeight: 'bold' }}>
@@ -59,61 +113,91 @@ const AccountComponent: React.FC = () => {
           }}
         >
           <TextField
-            label="Full name"
-            name="name"
-            value={formValues.name}
-            onChange={handleChange}
             fullWidth
+            label="Full Name"
+            variant="outlined"
+            {...register('fullname')}
+            error={!!errors.fullname}
             size="small"
+            helperText={errors.fullname?.message}
           />
           <TextField
-            label="Email address"
-            name="email"
-            value={formValues.email}
-            onChange={handleChange}
             fullWidth
+            label="Email"
+            variant="outlined"
+            {...register('email')}
+            error={!!errors.email}
+            helperText={errors.email?.message}
             size="small"
             disabled
           />
-          <TextField
-            label="Dial code"
-            name="country"
-            value={formValues.country}
-            onChange={handleChange}
-            select
-            fullWidth
+          <Select
+            {...register('country')}
+            label="Country"
+            variant="outlined"
+            labelId="country-label"
+            defaultValue={userData?.country}
+            error={!!errors.country}
             size="small"
           >
-            <MenuItem value="Spain">Spain</MenuItem>
+            <MenuItem value="">Select Country</MenuItem>
             <MenuItem value="USA">USA</MenuItem>
-            <MenuItem value="UK">UK</MenuItem>
-          </TextField>
+            <MenuItem value="Canada">Canada</MenuItem>
+            <MenuItem value="India">India</MenuItem>
+            <MenuItem value="VietNam">Việt Nam</MenuItem>
+            <MenuItem value="Australia">Australia</MenuItem>
+          </Select>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label="Date of Birth"
+              maxDate={currentYear}
+              value={dayjs(userData?.dateOfBirth) || null}
+              onChange={(date: any) =>
+                setValue('dateOfBirth', date?.toDate() ?? null)
+              }
+              openTo="year"
+              yearsOrder="desc"
+              sx={{ minWidth: 250 }}
+            />
+          </LocalizationProvider>
+
           <TextField
-            label="Phone number"
-            name="phone"
-            value={formValues.phone}
-            onChange={handleChange}
             fullWidth
+            label="Address Line 1"
+            variant="outlined"
+            {...register('address1')}
+            error={!!errors.address1}
+            helperText={errors.address1?.message}
             size="small"
           />
           <TextField
-            label="Title"
-            name="title"
-            value={formValues.title}
-            onChange={handleChange}
             fullWidth
+            label="Address Line 2"
+            variant="outlined"
+            {...register('address2')}
+            error={!!errors.address2}
+            helperText={errors.address2?.message}
             size="small"
           />
           <TextField
-            label="Biography (optional)"
-            name="bio"
-            value={formValues.bio}
-            onChange={handleChange}
             fullWidth
+            label="Phone"
+            variant="outlined"
+            {...register('phone')}
+            error={!!errors.phone}
+            helperText={errors.phone?.message}
             size="small"
+          />
+          <TextField
+            fullWidth
+            label="Bio"
+            variant="outlined"
             multiline
+            size="small"
             rows={3}
-            inputProps={{ maxLength: 200 }}
+            {...register('bio')}
+            error={!!errors.bio}
+            helperText={errors.bio?.message}
           />
         </Box>
         <Box display="flex" justifyContent="flex-end" mt={3} gap={2}>
@@ -127,7 +211,7 @@ const AccountComponent: React.FC = () => {
           <Button
             variant="contained"
             color="primary"
-            onClick={handleSubmit}
+            onClick={handleSubmit(onFormSubmit)}
             sx={{
               fontWeight: 'bold',
               textTransform: 'none',

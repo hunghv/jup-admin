@@ -4,7 +4,6 @@ import {
   createUser,
   deleteUser,
   fetchUsers,
-  login,
   logout,
   resetPassword,
   updateUser,
@@ -118,7 +117,6 @@ const userSlice = createSlice({
         state.isAuthenticated = false;
         sessionStorage.clear();
       })
-
       .addCase(deleteUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Failed to delete user';
@@ -132,11 +130,15 @@ const userSlice = createSlice({
   },
 
   reducers: {
+    setCurrentUser: (state, action) => {
+      state.user = action.payload;
+      state.isAuthenticated = true;
+    },
     updateRowsPerPage: (state, action: PayloadAction<number>) => {
       state.rowsPerPage = action.payload;
     },
   },
 });
 
-export const { updateRowsPerPage } = userSlice.actions;
+export const { updateRowsPerPage, setCurrentUser } = userSlice.actions;
 export default userSlice.reducer;

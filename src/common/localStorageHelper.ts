@@ -12,7 +12,7 @@ export const setLocalStorage = (key: string, value: any): void => {
 
 export const getUserInformation = (): any | null => {
   try {
-    const value = sessionStorage.getItem(STORAGE_KEY);
+    const value = localStorage.getItem(STORAGE_KEY);
     return value ? JSON.parse(value) : null; // Parse dữ liệu ra và trả về
   } catch (error) {
     console.error('Error getting data from localStorage', error);
