@@ -55,7 +55,7 @@ const AccountPage: React.FC = () => {
             onClick={() => handleMenuSelect('account')}
           >
             <ListItemIcon>
-              <AccountCircleIcon />
+              <AccountCircleIcon color="warning" />
             </ListItemIcon>
             <ListItemText primary="Account" />
           </ListItemButton>
@@ -64,7 +64,7 @@ const AccountPage: React.FC = () => {
             onClick={() => handleMenuSelect('notifications')}
           >
             <ListItemIcon>
-              <NotificationsIcon />
+              <NotificationsIcon color="warning" />
             </ListItemIcon>
             <ListItemText primary="Notifications" />
           </ListItemButton>
@@ -73,7 +73,7 @@ const AccountPage: React.FC = () => {
             onClick={() => handleMenuSelect('Security')}
           >
             <ListItemIcon>
-              <SecurityIcon />
+              <SecurityIcon color="warning" />
             </ListItemIcon>
             <ListItemText primary="Security" />
           </ListItemButton>
@@ -88,7 +88,7 @@ const AccountPage: React.FC = () => {
             onClick={() => handleMenuSelect('Billing & Plans')}
           >
             <ListItemIcon>
-              <CreditCardIcon />
+              <CreditCardIcon color="warning" />
             </ListItemIcon>
             <ListItemText primary="Billing & Plans" />
           </ListItemButton>
@@ -97,7 +97,7 @@ const AccountPage: React.FC = () => {
             onClick={() => handleMenuSelect('Team')}
           >
             <ListItemIcon>
-              <GroupIcon />
+              <GroupIcon color="warning" />
             </ListItemIcon>
             <ListItemText primary="Team" />
           </ListItemButton>
@@ -106,7 +106,7 @@ const AccountPage: React.FC = () => {
             onClick={() => handleMenuSelect('Integrations')}
           >
             <ListItemIcon>
-              <ExtensionIcon />
+              <ExtensionIcon color="warning" />
             </ListItemIcon>
             <ListItemText primary="Integrations" />
           </ListItemButton>
