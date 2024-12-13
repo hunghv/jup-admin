@@ -31,7 +31,9 @@ import {
   AddAlarmRounded,
   AddToHomeScreen,
   BiotechOutlined,
+  CommentBank,
   EditNote,
+  LocationCityOutlined,
   PermIdentityRounded,
   Phone,
 } from '@mui/icons-material';
@@ -105,6 +107,36 @@ const AccountComponent: React.FC = () => {
       icon: <PersonIcon color="warning" />,
     },
     {
+      label: 'Company',
+      value: userData.company,
+      icon: <CommentBank color="warning" />,
+    },
+    {
+      label: 'City',
+      value: userData.city,
+      icon: <LocationCityOutlined color="warning" />,
+    },
+    {
+      label: 'Occupation',
+      value: userData.occupation,
+      icon: <LocationCityOutlined color="warning" />,
+    },
+    {
+      label: 'ZipCode',
+      value: userData.zipCode,
+      icon: <LocationCityOutlined color="warning" />,
+    },
+    {
+      label: 'Twitter Profile',
+      value: userData.twitterProfile,
+      icon: <CommentBank color="warning" />,
+    },
+    {
+      label: 'Linkedin Profile',
+      value: userData.linkedinProfile,
+      icon: <PermIdentityRounded color="warning" />,
+    },
+    {
       label: 'Bio',
       value: userData.bio,
       icon: <BiotechOutlined color="warning" />,
@@ -112,6 +144,10 @@ const AccountComponent: React.FC = () => {
   ];
 
   const [isEdit, setIsEdit] = useState(false);
+
+  const removeAvatar = () => {
+    setValue('profilePictureUrl', '');
+  }
 
   if (!userData) {
     navigate('/sign-in');
@@ -234,7 +270,7 @@ const AccountComponent: React.FC = () => {
                 src={userData?.profilePicture}
                 sx={{ width: 80, height: 80, border: '3px solid #e0e0e0' }}
               />
-              <Button variant="text" color="error" sx={{ fontWeight: 'bold' }}>
+              <Button onClick={()=> removeAvatar()} variant="text" color="error" sx={{ fontWeight: 'bold' }}>
                 Remove
               </Button>
             </Box>
