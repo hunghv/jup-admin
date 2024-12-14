@@ -74,7 +74,7 @@ const Security: React.FC = () => {
       >
         <Box display="flex" alignItems="center" mb={3}>
           <IconButton disabled>
-            <LockIcon />
+            <LockIcon color="warning" />
           </IconButton>
           <Typography variant="h6" fontWeight="bold" ml={1}>
             Change password
@@ -114,7 +114,7 @@ const Security: React.FC = () => {
           <Box textAlign="right">
             <Button
               variant="contained"
-              color="primary"
+              color="warning"
               onClick={handleSubmit}
               sx={{ textTransform: 'none', fontWeight: 'bold' }}
             >
@@ -135,7 +135,7 @@ const Security: React.FC = () => {
       >
         <Box display="flex" alignItems="center" mb={3}>
           <IconButton disabled>
-            <AccessTimeIcon />
+            <AccessTimeIcon color="warning" />
           </IconButton>
           <Typography variant="h6" fontWeight="bold" ml={1}>
             Login history

@@ -20,7 +20,7 @@ import { RootState } from '../../redux/store';
 const ProfileDropdown: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  
+
   const userData = getUserInformation();
   const [currentUser, setCurrentUser] = useState(userData);
 
@@ -28,7 +28,7 @@ const ProfileDropdown: React.FC = () => {
     setAnchorEl(event.currentTarget);
   };
 
-  const {isAuthenticated} = useSelector((state: RootState) => state.users);
+  const { isAuthenticated } = useSelector((state: RootState) => state.users);
 
   useEffect(() => {
     const user = getUserInformation();
@@ -50,7 +50,7 @@ const ProfileDropdown: React.FC = () => {
     <Box>
       {/* Avatar Button */}
       <IconButton onClick={handleClick}>
-      <Avatar
+        <Avatar
           alt="Admin"
           src={currentUser?.profilePicture}
           sx={{ backgroundColor: 'white', color: '#1976d2' }}
@@ -74,10 +74,10 @@ const ProfileDropdown: React.FC = () => {
       >
         <Box sx={{ paddingX: 2, paddingY: 1 }}>
           <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-            {currentUser.fullname}
+            Hi {currentUser.fullname}!
           </Typography>
           <Typography variant="body2" color="text.secondary">
-          {currentUser.title}
+            {currentUser.role}
           </Typography>
         </Box>
         <Divider />

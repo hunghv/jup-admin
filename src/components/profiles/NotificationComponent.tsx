@@ -60,7 +60,7 @@ const Notifications: React.FC = () => {
       >
         <Box display="flex" alignItems="center" mb={2}>
           <IconButton disabled>
-            <EmailIcon />
+            <EmailIcon color="warning" />
           </IconButton>
           <Typography variant="h6" fontWeight="bold" ml={1}>
             Email
@@ -84,7 +84,7 @@ const Notifications: React.FC = () => {
             <FormControlLabel
               control={
                 <Switch
-                  color="primary"
+                  color="warning"
                   checked={emailSettings.productUpdates}
                   onChange={() => handleEmailToggle('productUpdates')}
                 />
@@ -110,7 +110,7 @@ const Notifications: React.FC = () => {
             <FormControlLabel
               control={
                 <Switch
-                  color="primary"
+                  color="warning"
                   checked={emailSettings.securityUpdates}
                   onChange={() => handleEmailToggle('securityUpdates')}
                 />
@@ -133,7 +133,7 @@ const Notifications: React.FC = () => {
       >
         <Box display="flex" alignItems="center" mb={2}>
           <IconButton disabled>
-            <PhoneIcon />
+            <PhoneIcon color="warning" />
           </IconButton>
           <Typography variant="h6" fontWeight="bold" ml={1}>
             Phone
@@ -157,7 +157,7 @@ const Notifications: React.FC = () => {
             <FormControlLabel
               control={
                 <Switch
-                  color="primary"
+                  color="warning"
                   checked={phoneSettings.securityUpdates}
                   onChange={() => handlePhoneToggle('securityUpdates')}
                 />
