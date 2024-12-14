@@ -83,7 +83,7 @@ const userSlice = createSlice({
         state.isAuthenticated = true;
         state.error = null;
         state.loading = false;
-        sessionStorage.setItem('UserInformation', JSON.stringify(state.user));
+        localStorage.setItem('UserInformation', JSON.stringify(state.user));
         const index = state.users.findIndex(
           (user) => user.id === action.payload.id
         );

@@ -97,6 +97,7 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
 
   const onFormSubmit: SubmitHandler<any> = (data: any) => {
     dispatch(updateUser({ ...data, id: userData.id }));
+    changeViewModeAccount();
   };
   const changeViewMode = () => {
     changeViewModeAccount();
@@ -168,11 +169,11 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
               error={!!errors.country}
             >
               <MenuItem value="">Select Country</MenuItem>
-              <MenuItem value="USA">USA</MenuItem>
+              <MenuItem value="USA">Mỹ</MenuItem>
               <MenuItem value="Canada">Canada</MenuItem>
-              <MenuItem value="India">India</MenuItem>
+              <MenuItem value="India">Ấn Độ</MenuItem>
               <MenuItem value="VietNam">Việt Nam</MenuItem>
-              <MenuItem value="Australia">Australia</MenuItem>
+              <MenuItem value="Australia">Úc</MenuItem>
             </Select>
           </FormControl>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -238,6 +239,17 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
             helperText={errors.company?.message}
             size="small"
           />
+
+          <TextField
+            fullWidth
+            label="Occupation"
+            variant="outlined"
+            {...register('occupation')}
+            error={!!errors.occupation}
+            helperText={errors.occupation?.message}
+            size="small"
+          />
+
           <TextField
             fullWidth
             label="City"

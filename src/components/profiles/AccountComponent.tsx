@@ -103,6 +103,11 @@ const AccountComponent: React.FC = () => {
       value: userData.bio,
       icon: <BiotechOutlined color="warning" />,
     },
+    {
+      label: 'Gender',
+      value: userData.gender,
+      icon: <PersonIcon color="warning" />,
+    },
   ];
 
   const [isEdit, setIsEdit] = useState(false);
