@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Box, Button, Card, Typography } from '@mui/material';
-import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 import { getUserInformation } from '../../common/localStorageHelper';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
@@ -20,21 +17,6 @@ import {
   Phone,
 } from '@mui/icons-material';
 import AccountUpdatePage from './AccountUpdatePage';
-
-const schema = yup.object({
-  fullname: yup.string().required('Full name is required'),
-  email: yup.string().email('Invalid email').required('Email is required'),
-  phone: yup.string().nullable(),
-  address1: yup.string().nullable(),
-  address2: yup.string().nullable(),
-  country: yup.string().nullable(),
-  dateOfBirth: yup.date().required('Date of Birth is required').nullable(),
-  profilePictureUrl: yup.string().url().nullable(),
-  role: yup.string().required('Role is required'),
-  accountStatus: yup.string().required('Account status is required'),
-  isActive: yup.boolean().required(),
-  bio: yup.string().nullable(),
-});
 
 const AccountComponent: React.FC = () => {
   const userData = getUserInformation();
@@ -129,26 +111,26 @@ const AccountComponent: React.FC = () => {
     navigate('/sign-in');
   }
 
-  const { setValue } = useForm({
-    resolver: yupResolver(schema),
-  });
+  // const { setValue } = useForm({
+  //   resolver: yupResolver(schema),
+  // });
 
-  useEffect(() => {
-    if (userData) {
-      setValue('fullname', userData.fullname);
-      setValue('email', userData.email);
-      setValue('phone', userData.phone);
-      setValue('address1', userData.address1);
-      setValue('address2', userData.address2);
-      setValue('country', userData.country);
-      setValue('dateOfBirth', userData.dateOfBirth);
-      setValue('profilePictureUrl', userData.profilePictureUrl);
-      setValue('role', userData.role);
-      setValue('accountStatus', userData.accountStatus);
-      setValue('isActive', userData.isActive);
-      setValue('bio', userData.bio);
-    }
-  }, [userData, setValue]);
+  // useEffect(() => {
+  //   if (userData) {
+  //     setValue('fullname', userData.fullname);
+  //     setValue('email', userData.email);
+  //     setValue('phone', userData.phone);
+  //     setValue('address1', userData.address1);
+  //     setValue('address2', userData.address2);
+  //     setValue('country', userData.country);
+  //     setValue('dateOfBirth', userData.dateOfBirth);
+  //     setValue('profilePictureUrl', userData.profilePictureUrl);
+  //     setValue('role', userData.role);
+  //     setValue('accountStatus', userData.accountStatus);
+  //     setValue('isActive', userData.isActive);
+  //     setValue('bio', userData.bio);
+  //   }
+  // }, [userData, setValue]);
 
   const changeMode = () => {
     setIsEdit(!isEdit);

@@ -41,7 +41,6 @@ const schema = yup.object({
   profilePictureUrl: yup.string().url().nullable(),
   role: yup.string().required('Role is required'),
   accountStatus: yup.string().required('Account status is required'),
-  isActive: yup.boolean().required(),
   bio: yup.string().nullable(),
   gender: yup.string().nullable(),
   occupation: yup.string().nullable(),
@@ -80,14 +79,13 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
       setValue('phone', userData.phone);
       setValue('address1', userData.address1);
       setValue('address2', userData.address2);
-      setValue('country', userData.country);
+      setValue('country', userData.country ?? '');
       setValue('dateOfBirth', userData.dateOfBirth);
       setValue('profilePictureUrl', userData.profilePictureUrl);
       setValue('role', userData.role);
       setValue('accountStatus', userData.accountStatus);
-      setValue('isActive', userData.isActive);
       setValue('bio', userData.bio);
-      setValue('gender', userData.gender);
+      setValue('gender', userData.gender ?? '');
       setValue('occupation', userData.occupation);
       setValue('city', userData.city);
       setValue('facebookProfile', userData.facebookProfile);
@@ -98,8 +96,6 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
   }, [userData, setValue]);
 
   const onFormSubmit: SubmitHandler<any> = (data: any) => {
-    debugger
-    console.log(data)
     dispatch(updateUser({ ...data, id: userData.id }));
   };
   const changeViewMode = () => {
@@ -261,6 +257,7 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
               defaultValue={userData?.gender}
               error={!!errors.gender}
             >
+              <MenuItem value="">Chọn giới tính </MenuItem>
               <MenuItem value="Unknow">Không biết</MenuItem>
               <MenuItem value="Male">Nam</MenuItem>
               <MenuItem value="Female">Nữ</MenuItem>
@@ -317,6 +314,7 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
           >
             Save changes
           </Button>
+          {Object.keys(errors).length > 0 && <p>{JSON.stringify(errors)}</p>}
         </Box>
       </Paper>
     </Box>
