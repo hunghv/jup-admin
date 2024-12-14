@@ -14,7 +14,7 @@ import {
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { updateUser } from '../../services';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -55,13 +55,12 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
   const userData = getUserInformation();
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
-  const removeAvatar = () => {
-    setValue('profilePictureUrl', '');
-  };
 
   if (!userData) {
     navigate('/sign-in');
   }
+
+  const [profileImage, setProfileImage] = useState('');
 
   const {
     register,
@@ -74,6 +73,13 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
 
   useEffect(() => {
     if (userData) {
+      setProfileImage(userData.profilePictureUrl);
+    }
+  }, [userData])
+  
+  useEffect(() => {
+    if (userData) {
+      setProfileImage(userData.profilePictureUrl);
       setValue('fullname', userData.fullname);
       setValue('email', userData.email);
       setValue('phone', userData.phone);
@@ -120,11 +126,11 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
         <Box display="flex" alignItems="center" gap={2} mb={3}>
           <Avatar
             alt={userData?.fullname}
-            src={userData?.profilePicture}
+            src={profileImage}
             sx={{ width: 80, height: 80, border: '3px solid #e0e0e0' }}
           />
           <Button
-            onClick={() => removeAvatar()}
+            onClick={() => setProfileImage('')}
             variant="text"
             color="error"
             sx={{ fontWeight: 'bold' }}
