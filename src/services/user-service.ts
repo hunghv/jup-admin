@@ -64,9 +64,10 @@ export const registerUser = createAsyncThunk(
 export const updateUser = createAsyncThunk(
   'users/updateUser',
   async (user: any) => {
-    const url = `/api/v1/user/${user.id}`;
+    const url = `/api/v1/users/update`;
     delete user['id'];
-    const response = await apiClient.patch(url, user);
+    console.log(user);
+    const response = await apiClient.post(url, user);
     return response.data;
   }
 );

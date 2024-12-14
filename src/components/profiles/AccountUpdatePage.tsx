@@ -98,6 +98,8 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
   }, [userData, setValue]);
 
   const onFormSubmit: SubmitHandler<any> = (data: any) => {
+    debugger
+    console.log(data)
     dispatch(updateUser({ ...data, id: userData.id }));
   };
   const changeViewMode = () => {
@@ -200,6 +202,7 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
             helperText={errors.address1?.message}
             size="small"
           />
+
           <TextField
             fullWidth
             label="Address Line 2"
@@ -207,6 +210,69 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
             {...register('address2')}
             error={!!errors.address2}
             helperText={errors.address2?.message}
+            size="small"
+          />
+
+          <TextField
+            fullWidth
+            label="Facebook Profile"
+            variant="outlined"
+            {...register('facebookProfile')}
+            error={!!errors.facebookProfile}
+            helperText={errors.facebookProfile?.message}
+            size="small"
+          />
+
+          <TextField
+            fullWidth
+            label="Twitter Profile"
+            variant="outlined"
+            {...register('twitterProfile')}
+            error={!!errors.twitterProfile}
+            helperText={errors.twitterProfile?.message}
+            size="small"
+          />
+
+          <TextField
+            fullWidth
+            label="Company"
+            variant="outlined"
+            {...register('company')}
+            error={!!errors.company}
+            helperText={errors.company?.message}
+            size="small"
+          />
+          <TextField
+            fullWidth
+            label="City"
+            variant="outlined"
+            {...register('city')}
+            error={!!errors.city}
+            helperText={errors.city?.message}
+            size="small"
+          />
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Gender</InputLabel>
+            <Select
+              {...register('gender')}
+              label="Gender"
+              variant="outlined"
+              labelId="gender-label"
+              defaultValue={userData?.gender}
+              error={!!errors.gender}
+            >
+              <MenuItem value="Unknow">Không biết</MenuItem>
+              <MenuItem value="Male">Nam</MenuItem>
+              <MenuItem value="Female">Nữ</MenuItem>
+            </Select>
+          </FormControl>
+          <TextField
+            fullWidth
+            label="Linkedin Profile"
+            variant="outlined"
+            {...register('linkedinProfile')}
+            error={!!errors.linkedinProfile}
+            helperText={errors.linkedinProfile?.message}
             size="small"
           />
           <TextField
