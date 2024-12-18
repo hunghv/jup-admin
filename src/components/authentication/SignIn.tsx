@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   TextField,
   Button,
@@ -14,10 +14,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { SitemarkIcon } from './CustomIcons';
 import { auth } from './firebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../redux/store';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../redux/store';
 import { login } from '../../services';
-import { getUserInformation } from '../../common/localStorageHelper';
 import { setCurrentUser } from '../../redux/userSlice';
 
 const SignUpContainer = styled(Stack)(({ theme }) => ({

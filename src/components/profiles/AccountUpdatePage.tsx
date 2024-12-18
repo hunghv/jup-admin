@@ -18,11 +18,12 @@ import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { updateUser } from '../../services';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getUserInformation } from '../../common/localStorageHelper';
-import { AppDispatch } from '../../redux/store';
+import { AppDispatch, RootState } from '../../redux/store';
 import * as yup from 'yup';
+import LoadingSpinner from '../spinner/Sprinner';
 
 const currentYear = dayjs();
 
@@ -55,7 +56,8 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
   const userData = getUserInformation();
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
-
+  const { loading, error } = useSelector((state: RootState) => state.users);
+  
   if (!userData) {
     navigate('/sign-in');
   }
@@ -70,16 +72,15 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
-  useEffect(() => {
-    if (userData) {
-      setProfileImage(userData.profilePictureUrl);
-    }
-  }, [userData])
   
   useEffect(() => {
     if (userData) {
       setProfileImage(userData.profilePictureUrl);
+    }
+  }, [userData]);
+
+  useEffect(() => {
+    if (userData) {
       setValue('fullname', userData.fullname);
       setValue('email', userData.email);
       setValue('phone', userData.phone);
@@ -101,14 +102,18 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
     }
   }, [userData, setValue]);
 
-  const onFormSubmit: SubmitHandler<any> = (data: any) => {
-    dispatch(updateUser({ ...data, id: userData.id }));
-    changeViewModeAccount();
+  const onFormSubmit: SubmitHandler<any> = async (data: any) => {
+    const userInfor = await dispatch(updateUser({ ...data, id: userData.id }));
+    if(userInfor && !error){
+      changeViewModeAccount();
+    }
   };
   const changeViewMode = () => {
     changeViewModeAccount();
   };
+
   return (
+    <>
     <Box sx={{ width: { xs: '100%', md: '75%' } }}>
       <Paper
         elevation={0}
@@ -323,6 +328,7 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
           <Button
             variant="contained"
             color="primary"
+            disabled={loading}
             onClick={handleSubmit(onFormSubmit)}
             sx={{
               fontWeight: 'bold',
@@ -332,10 +338,11 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
           >
             Save changes
           </Button>
-          {Object.keys(errors).length > 0 && <p>{JSON.stringify(errors)}</p>}
+          {loading && <LoadingSpinner/>}
         </Box>
       </Paper>
     </Box>
+    </>
   );
 };
 

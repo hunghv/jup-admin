@@ -66,6 +66,10 @@ const userSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
+      .addCase(updateUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
       .addCase(updateUser.fulfilled, (state, action: PayloadAction<any>) => {
         state.user = {
           ...action.payload,

@@ -17,11 +17,11 @@ import {
   Phone,
 } from '@mui/icons-material';
 import AccountUpdatePage from './AccountUpdatePage';
+import LoadingSpinner from '../spinner/Sprinner';
 
 const AccountComponent: React.FC = () => {
   const userData = getUserInformation();
   const navigate = useNavigate();
-
   const personalInfo = [
     {
       label: 'Full Name',
@@ -84,11 +84,6 @@ const AccountComponent: React.FC = () => {
       icon: <LocationCityOutlined color="warning" />,
     },
     {
-      label: 'ZipCode',
-      value: userData.zipCode,
-      icon: <LocationCityOutlined color="warning" />,
-    },
-    {
       label: 'Twitter Profile',
       value: userData.twitterProfile,
       icon: <CommentBank color="warning" />,
@@ -115,27 +110,6 @@ const AccountComponent: React.FC = () => {
   if (!userData) {
     navigate('/sign-in');
   }
-
-  // const { setValue } = useForm({
-  //   resolver: yupResolver(schema),
-  // });
-
-  // useEffect(() => {
-  //   if (userData) {
-  //     setValue('fullname', userData.fullname);
-  //     setValue('email', userData.email);
-  //     setValue('phone', userData.phone);
-  //     setValue('address1', userData.address1);
-  //     setValue('address2', userData.address2);
-  //     setValue('country', userData.country);
-  //     setValue('dateOfBirth', userData.dateOfBirth);
-  //     setValue('profilePictureUrl', userData.profilePictureUrl);
-  //     setValue('role', userData.role);
-  //     setValue('accountStatus', userData.accountStatus);
-  //     setValue('isActive', userData.isActive);
-  //     setValue('bio', userData.bio);
-  //   }
-  // }, [userData, setValue]);
 
   const changeMode = () => {
     setIsEdit(!isEdit);

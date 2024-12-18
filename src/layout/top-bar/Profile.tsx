@@ -42,6 +42,9 @@ const ProfileDropdown: React.FC = () => {
   const navigate = useNavigate();
 
   function handleMenuClose(path: string): void {
+    if(path === '/logout'){
+      localStorage.clear();
+    }
     setAnchorEl(null);
     navigate(path);
   }
