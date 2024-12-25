@@ -253,7 +253,7 @@ const ChatPage = () => {
             p: 2,
           }}
         >
-          <Avatar src="/assets/images/avatar/avatar-1.webp" />
+          <Avatar src={user.profilePictureUrl} />
           <InputBase
             sx={{
               flexGrow: 1,
