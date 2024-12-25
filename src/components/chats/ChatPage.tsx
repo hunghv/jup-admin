@@ -18,10 +18,13 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import axios from 'axios';
 import { io } from 'socket.io-client';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
+import { getUserInformation } from '../../common/localStorageHelper';
+import apiClient from '../../utils/axiosConfig';
+import LoadingSpinner from '../spinner/Sprinner';
+import dayjs from 'dayjs';
 
-const socket = io('http://localhost:8080');
+const socket = io('');
+//https://jup-service.vercel.app
 
 const ChatPage = () => {
   const [users, setUsers] = useState([]);
@@ -29,7 +32,7 @@ const ChatPage = () => {
   const [selectedUser, setSelectedUser] = useState<any>(null);
   const [newMessage, setNewMessage] = useState('');
   const [room, setRoom] = useState('default');
-  const { user } = useSelector((state: RootState) => state.users);
+  const user = getUserInformation();
   const currentUserId = user.id;
   const endOfMessagesRef = useRef<HTMLDivElement | null>(null);
 
@@ -59,20 +62,22 @@ const ChatPage = () => {
   }, [room]);
 
   const fetchUsers = async () => {
-    const response = await axios.get('http://localhost:8080/chat/users');
-    setUsers(response.data.filter((user: any) => user.id !== currentUserId));
+  
+    const response = await apiClient.get('/api/v1/chat/users');
+    console.log(response.data.data);
+    setUsers(response.data.data.filter((user: any) => user.id !== currentUserId));
   };
 
   const userSelected = async (receiver: any) => {
-    const response = await axios.get('http://localhost:8080/chat/messages', {
+    const response = await apiClient.get('/api/v1/chat/messages', {
       params: { senderId: currentUserId, receiverId: receiver.id },
     });
     setSelectedUser(receiver);
-    setMessages(response.data);
+    setMessages(response.data.data);
   };
 
   const fetchMessages = async (receiverId: any) => {
-    const response = await axios.get('http://localhost:8080/chat/messages', {
+    const response = await apiClient.get('/api/v1/chat/messages', {
       params: { senderId: currentUserId, receiverId: receiverId },
     });
 
@@ -87,7 +92,7 @@ const ChatPage = () => {
 
   const sendMessage = async () => {
     if (!newMessage.trim()) return;
-    await axios.post('http://localhost:8080/chat/send', {
+    await axios.post('https://jup-service.vercel.app/api/v1/chat/send', {
       senderId: currentUserId,
       receiverId: selectedUser.id,
       messageText: newMessage,
@@ -154,11 +159,11 @@ const ChatPage = () => {
               onClick={() => userSelected(chat)}
             >
               <ListItemAvatar>
-                <Avatar src={chat.avatar_url} />
+                <Avatar src={chat.profilePictureUrl} />
               </ListItemAvatar>
               <ListItemText
-                primary={`${chat.firstName} ${chat.lastName}`}
-                secondary={`${chat.email} · ${chat.createdAt}`}
+                primary={`${chat.fullname}`}
+                secondary={`${chat.occupation ?? ""} - ${dayjs(chat.createdAt).format('DD/MM/YYYY')}`}
               />
             </ListItemButton>
           ))}
@@ -179,9 +184,9 @@ const ChatPage = () => {
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             {selectedUser && (
               <>
-                <Avatar src={selectedUser.avatar_url} />{' '}
+                <Avatar src={selectedUser.profilePictureUrl} />{' '}
                 <Box>
-                  <Typography variant="subtitle1">{`${selectedUser.firstName} ${selectedUser.lastName}`}</Typography>
+                  <Typography variant="subtitle1">{`${selectedUser.fullname}`}</Typography>
                   <Typography variant="body2" color="text.secondary">
                     Recently active
                   </Typography>

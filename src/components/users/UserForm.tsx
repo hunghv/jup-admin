@@ -171,7 +171,7 @@ const UserForm: React.FC<UserFormProps> = ({
             error={!!errors.email}
             helperText={errors.email?.message}
             size="small"
-            disabled = {selectedUser? true: false}
+            disabled={selectedUser ? true : false}
           />
           <Select
             {...register('country')}
