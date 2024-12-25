@@ -10,7 +10,7 @@ import LinearProgress, {
 import { CssBaseline } from '@mui/material';
 import Dashboard from '../components/dashboard/Dashboard';
 import UserManager from '../components/users/UserManager';
-import Chat from '../components/chats/Chat';
+import ChatPage from '../components/chats/ChatPage';
 import News from '../components/news/News';
 import SignIn from '../components/authentication/SignIn';
 import AccessDenied from '../components/authentication/AccessDenied';
@@ -103,7 +103,7 @@ export function Router() {
         },
         {
           path: 'chat',
-          element: <Chat />,
+          element: <ChatPage />,
         },
         {
           path: 'news',
