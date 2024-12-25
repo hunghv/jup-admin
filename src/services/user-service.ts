@@ -11,7 +11,7 @@ export const fetchUsers = createAsyncThunk(
     sort?: string;
     filter?: string;
   }) => {
-    let url = `/api/v1/user?page=${params.page ? params.page + 1 : 1}&limit=${params.limit ?? 10}`;
+    let url = `/api/v1/users?page=${params.page ? params.page + 1 : 1}&limit=${params.limit ?? 10}`;
     if (params.filter) {
       url += `&filter=${params.filter}`;
     }
@@ -21,7 +21,7 @@ export const fetchUsers = createAsyncThunk(
     }
 
     const response = await apiClient.get(url);
-    return response.data;
+    return response.data.data;
   }
 );
 

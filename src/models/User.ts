@@ -19,4 +19,6 @@ export interface User {
   occupation: string | null;
   bio: string;
   address_code: string | null;
+  gender: string | null;
+  city: string | null;
 }
