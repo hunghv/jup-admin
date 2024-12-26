@@ -34,7 +34,9 @@ export const sendChatMessage = createAsyncThunk(
     messageText: string;
   }) => {
     const response = await apiClient.post(`/api/v1/chat/send`, {
-      params: params,
+      senderId: params.senderId,
+      receiverId: params.receiverId,
+      messageText: params.messageText,
     });
     return response.data.data;
   }

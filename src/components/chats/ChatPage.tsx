@@ -27,12 +27,12 @@ import {
   fetchChatUsers,
   sendChatMessage,
 } from '../../services/chat.service';
+import { API_URL } from '../../utils/config';
 
-const socket = io('');
-//https://jup-service.vercel.app
+
+const socket = io(API_URL);
 
 const ChatPage = () => {
-  // const [messages, setMessages] = useState<any[]>([]);
   const [selectedUser, setSelectedUser] = useState<any>(null);
   const [newMessage, setNewMessage] = useState('');
   const [room, setRoom] = useState('default');
@@ -104,7 +104,6 @@ const ChatPage = () => {
     });
 
     setNewMessage('');
-    // fetchMessages(selectedUser.id);
   };
 
   return (

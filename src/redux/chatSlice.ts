@@ -11,7 +11,7 @@ interface ChatState {
   loading: boolean;
   error: string | null;
   total: number;
-  messages: [];
+  messages: any[];
 }
 
 const initialState: ChatState = {
@@ -31,7 +31,7 @@ const chatSlice = createSlice({
       .addCase(sendChatMessage.pending, (state) => {})
       .addCase(sendChatMessage.fulfilled, (state, action) => {
         console.log(action);
-        // state.messages = [...state.messages, action.payload];
+        state.messages = [...state.messages, action.payload];
       })
       .addCase(sendChatMessage.rejected, (state, action) => {
         state.error = action.error.message || 'Failed to send message';
