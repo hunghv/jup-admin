@@ -30,7 +30,6 @@ const chatSlice = createSlice({
       // send message
       .addCase(sendChatMessage.pending, (state) => {})
       .addCase(sendChatMessage.fulfilled, (state, action) => {
-        console.log(action);
         state.messages = [...state.messages, action.payload];
       })
       .addCase(sendChatMessage.rejected, (state, action) => {
@@ -43,7 +42,6 @@ const chatSlice = createSlice({
       .addCase(fetchChatMessages.fulfilled, (state, action) => {
         state.loading = false;
         state.messages = action.payload;
-        console.log(state.users);
       })
       .addCase(fetchChatMessages.rejected, (state, action) => {
         state.loading = false;
