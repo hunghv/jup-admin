@@ -2,6 +2,13 @@ import axios from 'axios';
 import { API_URL } from './config';
 import { toastError } from '../common';
 
+
+let navigateFunction: ((path: string) => void) | null = null;
+
+export const setNavigateFunction = (navigate: (path: string) => void): void => {
+  navigateFunction = navigate;
+};
+
 const apiClient = axios.create({
   baseURL: API_URL,
   withCredentials: true,
@@ -35,6 +42,10 @@ apiClient.interceptors.response.use(
   (error) => {
     if (error.response && error.response.status === 401) {
       toastError('Token expired or invalid. Please login again.');
+      if (navigateFunction) {
+        navigateFunction('/sign-in');
+      }
+     
     }
     return Promise.reject(error);
   }
