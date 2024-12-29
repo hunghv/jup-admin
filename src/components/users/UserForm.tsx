@@ -319,7 +319,6 @@ const UserForm: React.FC<UserFormProps> = ({
           {selectedUser ? 'Update' : 'Add'}
         </Button>
       </DialogActions>
-      {JSON.stringify(errors)}
     </Dialog>
   );
 };

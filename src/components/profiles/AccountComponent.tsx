@@ -17,7 +17,6 @@ import {
   Phone,
 } from '@mui/icons-material';
 import AccountUpdatePage from './AccountUpdatePage';
-import LoadingSpinner from '../spinner/Sprinner';
 
 const AccountComponent: React.FC = () => {
   const userData = getUserInformation();

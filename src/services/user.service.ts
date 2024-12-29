@@ -66,9 +66,6 @@ export const updateUser = createAsyncThunk(
   async (user: any) => {
     const url = `/api/v1/users/update`;
     delete user['id'];
-    delete user['email'];
-    delete user['accountStatus'];
-    delete user['role'];
     const response = await apiClient.post(url, user);
     return response.data;
   }

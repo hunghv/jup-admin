@@ -103,6 +103,7 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
   }, [userData, setValue]);
 
   const onFormSubmit: SubmitHandler<any> = async (data: any) => {
+    delete data['email'];
     const userInfor = await dispatch(updateUser({ ...data, id: userData.id }));
     if (userInfor && !error) {
       changeViewModeAccount();

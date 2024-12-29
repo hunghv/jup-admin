@@ -106,6 +106,7 @@ const UserPage: React.FC<UserTableProps> = ({ onEdit }) => {
                 <Checkbox />
               </TableCell>
               <TableCell>Name</TableCell>
+              <TableCell>Email</TableCell>
               <TableCell>Phone</TableCell>
               <TableCell>Role</TableCell>
               <TableCell>Verified</TableCell>
@@ -127,7 +128,8 @@ const UserPage: React.FC<UserTableProps> = ({ onEdit }) => {
                     />
                     {row.fullname}
                   </Box>
-                </TableCell>
+                </TableCell> 
+                <TableCell>{row?.email}</TableCell>
                 <TableCell>{row?.phone}</TableCell>
                 <TableCell>{row?.role}</TableCell>
                 <TableCell>{row?.isActive ? '✅' : '❌'}</TableCell>
