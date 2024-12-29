@@ -40,7 +40,7 @@ const schema = yup.object({
   profilePictureUrl: yup.string().url().nullable(),
   role: yup.string().required('Role is required'),
   accountStatus: yup.string().required('Account status is required'),
-  isActive: yup.boolean().required(),
+  isActive: yup.boolean().nullable(),
   bio: yup.string().nullable(),
   gender: yup.string().nullable(),
   occupation: yup.string().nullable(),
@@ -319,6 +319,7 @@ const UserForm: React.FC<UserFormProps> = ({
           {selectedUser ? 'Update' : 'Add'}
         </Button>
       </DialogActions>
+      {JSON.stringify(errors)}
     </Dialog>
   );
 };
