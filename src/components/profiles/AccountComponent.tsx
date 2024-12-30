@@ -21,6 +21,9 @@ import AccountUpdatePage from './AccountUpdatePage';
 const AccountComponent: React.FC = () => {
   const userData = getUserInformation();
   const navigate = useNavigate();
+  if (!userData) {
+    navigate('/sign-in');
+  }
   const personalInfo = [
     {
       label: 'Full Name',
@@ -105,10 +108,6 @@ const AccountComponent: React.FC = () => {
   ];
 
   const [isEdit, setIsEdit] = useState(false);
-
-  if (!userData) {
-    navigate('/sign-in');
-  }
 
   const changeMode = () => {
     setIsEdit(!isEdit);
