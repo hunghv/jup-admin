@@ -1,21 +1,23 @@
 import { getLocalStorage } from '../../common/localStorageHelper';
 
-const jwt = require('jsonwebtoken');
-
 export const isTokenExpired = async (): Promise<boolean> => {
   const token = getLocalStorage('accessToken');
-  console.log(token);
-  const decoded = jwt.decode(token);
-  if (!decoded || !decoded.exp) {
-    throw new Error('Invalid token structure');
-  }
-  console.log(decoded);
-  const currentTime = Math.floor(Date.now() / 1000); 
-  console.log(currentTime);
+
+  return checkFirebaseToken(token);
+};
+
+function checkFirebaseToken(token: string | null): boolean {
+  if (!token) return true;
+
   try {
-    return currentTime >= decoded.exp;
+    const [, payloadBase64] = token.split('.');
+    const payloadJson = atob(payloadBase64);
+    const payload = JSON.parse(payloadJson);
+
+    const now = Math.floor(Date.now() / 1000);
+    return payload.exp < now;
   } catch (error) {
-    console.error('Error checking token expiration:', error);
+    console.error('Token không hợp lệ:', error);
     return true;
   }
-};
+}
