@@ -29,7 +29,6 @@ import {
 } from '../../services/chat.service';
 import { API_URL } from '../../utils/config';
 
-
 const socket = io(API_URL);
 
 const ChatPage = () => {

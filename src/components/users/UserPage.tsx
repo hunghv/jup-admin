@@ -128,7 +128,7 @@ const UserPage: React.FC<UserTableProps> = ({ onEdit }) => {
                     />
                     {row.fullname}
                   </Box>
-                </TableCell> 
+                </TableCell>
                 <TableCell>{row?.email}</TableCell>
                 <TableCell>{row?.phone}</TableCell>
                 <TableCell>{row?.role}</TableCell>
