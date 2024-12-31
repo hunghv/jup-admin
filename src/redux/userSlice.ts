@@ -126,11 +126,6 @@ const userSlice = createSlice({
       .addCase(
         resetPassword.fulfilled,
         (state, action: PayloadAction<User>) => {
-          state.users = [action.payload, ...state.users];
-          state.total += 1;
-          if (state.users.length > state.rowsPerPage) {
-            state.users = state.users.slice(0, state.rowsPerPage);
-          }
           toastSuccess('Reset password Thành công! vui lòng check mail.');
         }
       )

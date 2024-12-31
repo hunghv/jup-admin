@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import apiClient from '../utils/axiosConfig';
-import { toastSuccess, toastError } from '../common';
+import { toastError } from '../common';
 
 export const fetchChatUsers = createAsyncThunk(
   'chat/fetchUsers',

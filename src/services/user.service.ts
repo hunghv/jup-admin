@@ -91,7 +91,7 @@ export const deleteUser = createAsyncThunk(
 export const resetPassword = createAsyncThunk(
   'users/resetPassword',
   async (email: string) => {
-    const response = await apiClient.post(`/users/reset-password`, {
+    const response = await apiClient.post(`/api/v1/auth/reset-password`, {
       email: email,
     });
     return response.data;
