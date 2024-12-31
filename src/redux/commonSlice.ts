@@ -22,7 +22,6 @@ const commonSlice = createSlice({
     builder
       .addCase(fetchMetadata.pending, (state) => {})
       .addCase(fetchMetadata.fulfilled, (state, action) => {
-        console.log(action.payload)
         if (action.payload?.category === 'gender') {
           state.genders = action.payload?.data.map((m: any) => {
             return {

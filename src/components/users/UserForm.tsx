@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Dialog,
@@ -17,7 +17,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import dayjs from 'dayjs';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { createUser, updateUser } from '../../services';
+import { createUserWithoutFirebase, updateUser } from '../../services';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -41,7 +41,6 @@ const schema = yup.object({
   profilePictureUrl: yup.string().url().nullable(),
   role: yup.string().required('Role is required'),
   accountStatus: yup.string().required('Account status is required'),
-  isActive: yup.boolean().nullable(),
   bio: yup.string().nullable(),
   gender: yup.string().nullable(),
   occupation: yup.string().nullable(),
@@ -85,7 +84,6 @@ const UserForm: React.FC<UserFormProps> = ({
       setValue('profilePictureUrl', selectedUser.profilePictureUrl);
       setValue('role', selectedUser.role);
       setValue('accountStatus', selectedUser.accountStatus);
-      setValue('isActive', selectedUser.isActive);
       setValue('bio', selectedUser.bio);
       setValue('occupation', selectedUser.occupation);
       setValue('city', selectedUser.city);
@@ -102,7 +100,6 @@ const UserForm: React.FC<UserFormProps> = ({
       setValue('profilePictureUrl', '');
       setValue('role', '');
       setValue('accountStatus', '');
-      setValue('isActive', false);
       setValue('bio', '');
       setValue('occupation', '');
       setValue('city', '');
@@ -130,7 +127,7 @@ const UserForm: React.FC<UserFormProps> = ({
     if (selectedUser?.id) {
       dispatch(updateUser({ ...data, id: selectedUser?.id }));
     } else {
-      dispatch(createUser({ ...data }));
+      dispatch(createUserWithoutFirebase({ ...data }));
     }
     setValue('fullname', '');
     setValue('email', '');
@@ -143,7 +140,6 @@ const UserForm: React.FC<UserFormProps> = ({
     setValue('profilePictureUrl', '');
     setValue('role', '');
     setValue('accountStatus', 'active');
-    setValue('isActive', false);
     setValue('bio', '');
     setValue('occupation', '');
     setValue('city', '');

@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { User, User as UserFirebase } from 'firebase/auth';
 import apiClient from '../utils/axiosConfig';
 import { toastSuccess, toastError } from '../common';
+import { CreateUserModel } from '../models/CreateUserModel';
 
 export const fetchUsers = createAsyncThunk(
   'users/fetchUsers',
@@ -32,6 +33,14 @@ export const createUser = createAsyncThunk(
       `/api/v1/users/create-firebase`,
       user
     );
+    return response.data;
+  }
+);
+
+export const createUserWithoutFirebase = createAsyncThunk(
+  'users/createUserWithoutFirebase',
+  async (user: CreateUserModel) => {
+    const response = await apiClient.post(`/api/v1/users/create`, user);
     return response.data;
   }
 );

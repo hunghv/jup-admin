@@ -28,7 +28,6 @@ import { deleteUser, fetchUsers, resetPassword } from '../../services';
 import { updateRowsPerPage } from '../../redux/userSlice';
 import KeyIcon from '@mui/icons-material/Key';
 import LoadingSpinner from '../spinner/Sprinner';
-import { red } from '@mui/material/colors';
 
 interface UserTableProps {
   onEdit: (user: User) => void;

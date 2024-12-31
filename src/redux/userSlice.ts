@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { User } from '../models/User';
 import {
   createUser,
+  createUserWithoutFirebase,
   deleteUser,
   fetchUsers,
   logout,
@@ -52,6 +53,22 @@ const userSlice = createSlice({
       .addCase(fetchUsers.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Failed to load users';
+      })
+      .addCase(createUserWithoutFirebase.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(createUserWithoutFirebase.fulfilled, (state, action) => {
+        state.users = [action.payload, ...state.users];
+        state.total += 1;
+        if (state.users.length > state.rowsPerPage) {
+          state.users = state.users.slice(0, state.rowsPerPage);
+        }
+        state.loading = false;
+        toastSuccess('Tạo tài khoản thành công');
+      })
+      .addCase(createUserWithoutFirebase.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Tạo mới người dùng không thành công';
       })
       .addCase(createUser.fulfilled, (state, action: PayloadAction<User>) => {
         state.users = [action.payload, ...state.users];
