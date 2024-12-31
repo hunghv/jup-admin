@@ -15,6 +15,7 @@ import {
   MenuItem,
   Menu,
   TablePagination,
+  colors,
 } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CreateIcon from '@mui/icons-material/Create';
@@ -27,6 +28,7 @@ import { deleteUser, fetchUsers, resetPassword } from '../../services';
 import { updateRowsPerPage } from '../../redux/userSlice';
 import KeyIcon from '@mui/icons-material/Key';
 import LoadingSpinner from '../spinner/Sprinner';
+import { red } from '@mui/material/colors';
 
 interface UserTableProps {
   onEdit: (user: User) => void;
@@ -98,6 +100,7 @@ const UserPage: React.FC<UserTableProps> = ({ onEdit }) => {
 
   return (
     <>
+      {error && <h3 style={{ color: 'red' }}>{error}</h3>}
       <TableContainer component={Paper}>
         <Table>
           <TableHead>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Dialog,
   DialogTitle,
@@ -12,7 +12,7 @@ import {
   Select,
 } from '@mui/material';
 import { User } from '../../models/User';
-import { AppDispatch } from '../../redux/store';
+import { AppDispatch, RootState } from '../../redux/store';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import dayjs from 'dayjs';
@@ -21,6 +21,7 @@ import { createUser, updateUser } from '../../services';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { fetchMetadata } from '../../services/common.service';
 
 interface UserFormProps {
   open: boolean;
@@ -116,6 +117,15 @@ const UserForm: React.FC<UserFormProps> = ({
   //     });
   //   };
 
+  const { countries, genders } = useSelector(
+    (state: RootState) => state.common
+  );
+
+  useEffect(() => {
+    dispatch(fetchMetadata('country'));
+    dispatch(fetchMetadata('gender'));
+  }, [dispatch]);
+
   const onFormSubmit: SubmitHandler<any> = (data: any) => {
     if (selectedUser?.id) {
       dispatch(updateUser({ ...data, id: selectedUser?.id }));
@@ -182,12 +192,9 @@ const UserForm: React.FC<UserFormProps> = ({
             error={!!errors.country}
             size="small"
           >
-            <MenuItem value="">Select Country</MenuItem>
-            <MenuItem value="USA">USA</MenuItem>
-            <MenuItem value="Canada">Canada</MenuItem>
-            <MenuItem value="India">India</MenuItem>
-            <MenuItem value="VietNam">Việt Nam</MenuItem>
-            <MenuItem value="Australia">Australia</MenuItem>
+            {countries.map((row: any) => (
+              <MenuItem value={row.key}>{row.value}</MenuItem>
+            ))}
           </Select>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
@@ -249,7 +256,6 @@ const UserForm: React.FC<UserFormProps> = ({
             error={!!errors.accountStatus}
             size="small"
           >
-            <MenuItem value="">Select Status</MenuItem>
             <MenuItem value="active">Active</MenuItem>
             <MenuItem value="inactive">Inactive</MenuItem>
             <MenuItem value="banned">Banned</MenuItem>
@@ -277,10 +283,9 @@ const UserForm: React.FC<UserFormProps> = ({
             error={!!errors.gender}
             size="small"
           >
-            <MenuItem value="">Select Gender</MenuItem>
-            <MenuItem value="Male">Male</MenuItem>
-            <MenuItem value="FeMale">FeMale</MenuItem>
-            <MenuItem value="Unknow">Unknow</MenuItem>
+            {genders.map((row: any) => (
+              <MenuItem value={row.key}>{row.value}</MenuItem>
+            ))}
           </Select>
           <TextField
             fullWidth

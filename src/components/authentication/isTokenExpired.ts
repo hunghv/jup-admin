@@ -1,5 +1,5 @@
 export const isTokenExpired = async (): Promise<boolean> => {
-  const token  = localStorage.getItem('accessToken')
+  const token = localStorage.getItem('accessToken');
   return checkFirebaseToken(token);
 };
 
