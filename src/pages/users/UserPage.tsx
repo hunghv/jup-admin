@@ -27,7 +27,7 @@ import { ROWS_PER_PAGE, ROWS_PER_PAGE_OPTION } from '../../common/constant';
 import { deleteUser, fetchUsers, resetPassword } from '../../services';
 import { updateRowsPerPage } from '../../redux/userSlice';
 import KeyIcon from '@mui/icons-material/Key';
-import LoadingSpinner from '../spinner/Sprinner';
+import LoadingSpinner from '../../components/spinner/Sprinner';
 
 interface UserTableProps {
   onEdit: (user: User) => void;
@@ -104,9 +104,9 @@ const UserPage: React.FC<UserTableProps> = ({ onEdit }) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell padding="checkbox">
+              {/* <TableCell padding="checkbox">
                 <Checkbox />
-              </TableCell>
+              </TableCell> */}
               <TableCell>Name</TableCell>
               <TableCell>Email</TableCell>
               <TableCell>Phone</TableCell>
@@ -119,9 +119,9 @@ const UserPage: React.FC<UserTableProps> = ({ onEdit }) => {
           <TableBody>
             {users.map((row: User) => (
               <TableRow key={row.id}>
-                <TableCell padding="checkbox">
+                {/* <TableCell padding="checkbox">
                   <Checkbox />
-                </TableCell>
+                </TableCell> */}
                 <TableCell>
                   <Box display="flex" alignItems="center">
                     <Avatar

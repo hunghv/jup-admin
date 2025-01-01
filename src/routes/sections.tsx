@@ -8,23 +8,23 @@ import LinearProgress, {
 // import { useSelector } from 'react-redux';
 // import { RootState } from '../redux/store';
 import { CssBaseline } from '@mui/material';
-import Dashboard from '../components/dashboard/Dashboard';
-import UserManager from '../components/users/UserManager';
-import ChatPage from '../components/chats/ChatPage';
-import News from '../components/news/News';
-import SignIn from '../components/authentication/SignIn';
-import AccessDenied from '../components/authentication/AccessDenied';
-import ResetPassword from '../components/authentication/ResetPassword';
-import Logout from '../components/authentication/Logout';
+import Dashboard from '../pages/dashboard/Dashboard';
+import UserManager from '../pages/users/UserManager';
+import ChatPage from '../pages/chats/ChatPage';
+import News from '../pages/news/News';
+import SignIn from '../pages/authentication/SignIn';
+import AccessDenied from '../pages/authentication/AccessDenied';
+import ResetPassword from '../pages/authentication/ResetPassword';
+import Logout from '../pages/authentication/Logout';
 import NotFound from '../layout/not-found/NotFound';
 import MainLayout from '../layout/main/MainLayout';
-import SignUp from '../components/authentication/Signup';
+import SignUp from '../pages/authentication/Signup';
 import Topbar from '../layout/top-bar/Topbar';
 import LeftMenu from '../layout/nav-bar/LeftMenu';
-import AccountComponent from '../components/profiles/AccountComponent';
-import NotificationComponent from '../components/profiles/NotificationComponent';
-import ProfilePage from '../components/profiles/ProfilePage';
-import Security from '../components/profiles/SecurityComponent';
+import { Security } from '@mui/icons-material';
+import AccountComponent from '../pages/profiles/AccountComponent';
+import NotificationComponent from '../pages/profiles/NotificationComponent';
+import ProfilePage from '../pages/profiles/ProfilePage';
 
 // const HomePage = lazy(() => import('../pages/HomePage'));
 

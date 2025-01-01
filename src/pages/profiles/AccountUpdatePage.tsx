@@ -23,7 +23,7 @@ import { useNavigate } from 'react-router-dom';
 import { getUserInformation } from '../../common/localStorageHelper';
 import { AppDispatch, RootState } from '../../redux/store';
 import * as yup from 'yup';
-import LoadingSpinner from '../spinner/Sprinner';
+import LoadingSpinner from '../../components/spinner/Sprinner';
 
 const currentYear = dayjs();
 

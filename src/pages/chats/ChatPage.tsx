@@ -18,7 +18,7 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import { io } from 'socket.io-client';
 import { getUserInformation } from '../../common/localStorageHelper';
-import LoadingSpinner from '../spinner/Sprinner';
+import LoadingSpinner from '../../components/spinner/Sprinner';
 import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';

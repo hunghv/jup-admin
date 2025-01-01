@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { setNavigateFunction } from './utils/axiosConfig';
-import { isTokenExpired } from './components/authentication/isTokenExpired';
+import { isTokenExpired } from './pages/authentication/isTokenExpired';
 
 function App() {
   const navigate = useNavigate();
