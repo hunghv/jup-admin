@@ -27,7 +27,7 @@ const AccessDeniedPage: React.FC = () => {
         You do not have permission to view this page.
       </Typography>
       <Button variant="contained" color="primary" onClick={handleGoHome}>
-        Go to Home
+        Go to Sign-in page
       </Button>
     </Box>
   );

@@ -68,7 +68,7 @@ function checkFirebaseToken(token: string | null): boolean {
 }
 
 export function Router() {
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(true);
   const navigate = useNavigate();
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
 
@@ -82,14 +82,16 @@ export function Router() {
 
   useEffect(() => {
     const user = getUserInformation();
-
     if (!user) {
       navigate('/sign-in');
     }
 
     if (user) {
       setAuthenticated(true);
+    }else{
+      setAuthenticated(false);
     }
+    
   }, [isAuthenticated, navigate]);
 
   useEffect(() => {

@@ -71,11 +71,9 @@ function SignIn() {
 
   useEffect(() => {
     const user = getUserInformation();
-    console.log(user);
-    if (!user) {
-      navigate('/sign-in');
+    if (user) {
+      navigate('/');
     }
-    navigate('/');
   }, [navigate]);
 
   const handleEmailLogin = async (event: any) => {
