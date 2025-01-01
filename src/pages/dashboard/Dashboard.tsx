@@ -7,7 +7,6 @@ import {
   CardMedia,
   Button,
   Pagination,
-  Badge,
 } from '@mui/material';
 import { styled } from '@mui/system';
 import FilterListIcon from '@mui/icons-material/FilterList';

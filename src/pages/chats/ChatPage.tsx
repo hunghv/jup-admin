@@ -34,12 +34,12 @@ const socket = io(API_URL);
 const ChatPage = () => {
   const [selectedUser, setSelectedUser] = useState<any>(null);
   const [newMessage, setNewMessage] = useState('');
-  const [room, setRoom] = useState('default');
+  const [room] = useState('default');
   const user = getUserInformation();
   const currentUserId = user.id;
   const endOfMessagesRef = useRef<HTMLDivElement | null>(null);
   const dispatch: AppDispatch = useDispatch();
-  const { users, loading, error, messages } = useSelector(
+  const { users, loading, messages } = useSelector(
     (state: RootState) => state.chat
   );
 
@@ -64,6 +64,7 @@ const ChatPage = () => {
       // Leave room on component unmount
       socket.emit('leaveRoom', { room });
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [room]);
 
   const userSelected = async (receiver: any) => {
