@@ -6,7 +6,7 @@ const AccessDeniedPage: React.FC = () => {
   const navigate = useNavigate();
 
   const handleGoHome = () => {
-    navigate('/');
+    navigate('/sign-in');
   };
 
   return (

@@ -8,7 +8,6 @@ interface RegisterState {
   error: string | null;
   user: any;
   isAuthenticated: boolean;
-  loginTrigger: boolean;
 }
 
 const initialState: RegisterState = {
@@ -17,7 +16,6 @@ const initialState: RegisterState = {
   error: null,
   isAuthenticated: false,
   user: {},
-  loginTrigger: false,
 };
 
 const authSlice = createSlice({

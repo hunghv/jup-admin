@@ -16,7 +16,7 @@ import SendIcon from '@mui/icons-material/Send';
 import AddIcon from '@mui/icons-material/Add';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
-import { io } from 'socket.io-client';
+// import { io } from 'socket.io-client';
 import { getUserInformation } from '../../common/localStorageHelper';
 import LoadingSpinner from '../../components/spinner/Sprinner';
 import dayjs from 'dayjs';
@@ -27,9 +27,9 @@ import {
   fetchChatUsers,
   sendChatMessage,
 } from '../../services/chat.service';
-import { API_URL } from '../../utils/config';
+// import { API_URL } from '../../utils/config';
 
-const socket = io(API_URL);
+// const socket = io(API_URL);
 
 const ChatPage = () => {
   const [selectedUser, setSelectedUser] = useState<any>(null);
@@ -54,17 +54,15 @@ const ChatPage = () => {
   }, [messages]);
 
   useEffect(() => {
-    socket.emit('join', { userId: currentUserId, room });
-
-    socket.on('receiveMessage', async (message) => {
-      fetchMessages(message.senderId);
-    });
-
-    return () => {
-      // Leave room on component unmount
-      socket.emit('leaveRoom', { room });
-    };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // socket.emit('join', { userId: currentUserId, room });
+    // socket.on('receiveMessage', async (message) => {
+    //   fetchMessages(message.senderId);
+    // });
+    // return () => {
+    //   // Leave room on component unmount
+    //   socket.emit('leaveRoom', { room });
+    // };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [room]);
 
   const userSelected = async (receiver: any) => {
@@ -74,11 +72,11 @@ const ChatPage = () => {
     setSelectedUser(receiver);
   };
 
-  const fetchMessages = async (receiverId: any) => {
-    dispatch(
-      fetchChatMessages({ senderId: currentUserId, receiverId: receiverId })
-    );
-  };
+  // const fetchMessages = async (receiverId: any) => {
+  //   dispatch(
+  //     fetchChatMessages({ senderId: currentUserId, receiverId: receiverId })
+  //   );
+  // };
 
   const handleKeyPress = (event: any) => {
     if (event.key === 'Enter') {
@@ -97,11 +95,11 @@ const ChatPage = () => {
       })
     );
 
-    socket.emit('sendMessage', {
-      room,
-      senderId: currentUserId,
-      message: newMessage,
-    });
+    // socket.emit('sendMessage', {
+    //   room,
+    //   senderId: currentUserId,
+    //   message: newMessage,
+    // });
 
     setNewMessage('');
   };

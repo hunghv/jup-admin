@@ -1,5 +1,5 @@
-import { Suspense } from 'react';
-import { Navigate, useRoutes } from 'react-router-dom';
+import { Suspense, useEffect, useState } from 'react';
+import { Navigate, useNavigate, useRoutes } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
 import LinearProgress, {
@@ -25,6 +25,11 @@ import { Security } from '@mui/icons-material';
 import AccountComponent from '../pages/profiles/AccountComponent';
 import NotificationComponent from '../pages/profiles/NotificationComponent';
 import ProfilePage from '../pages/profiles/ProfilePage';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
+import ProtectedRoute from '../components/ProtectedRoute';
+import { getUserInformation } from '../common/localStorageHelper';
+import { ADMIN_ROLE } from '../common';
 
 // const HomePage = lazy(() => import('../pages/HomePage'));
 
@@ -46,25 +51,52 @@ const renderFallback = (
   </Box>
 );
 
+function checkFirebaseToken(token: string | null): boolean {
+  if (!token) return true;
+
+  try {
+    const [, payloadBase64] = token.split('.');
+
+    const payloadJson = atob(payloadBase64);
+    const payload = JSON.parse(payloadJson);
+    const now = Math.floor(Date.now() / 1000);
+    return payload.exp < now;
+  } catch (error) {
+    console.error('Token không hợp lệ:', error);
+    return true;
+  }
+}
+
 export function Router() {
-  //   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  //   const loginTrigger = useSelector((state: RootState) => state.users);
-  //   const [user, setUser] = useState<any>();
+  const [authenticated, setAuthenticated] = useState(false);
+  const navigate = useNavigate();
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
 
-  //   useEffect(() => {
-  //     const user = getUserInformation();
-  //     if (user) {
-  //       setUser(user);
-  //       setIsAuthenticated(true);
-  //     }
-  //   }, [loginTrigger]);
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    const isExpired = checkFirebaseToken(token);
+    if (isExpired) {
+      navigate('/sign-in');
+    }
+  }, [navigate]);
 
-  //   const navigate = useNavigate();
-  //   useEffect(() => {
-  //     if (!isAuthenticated && window.location.pathname === '/') {
-  //       navigate('/sign-in', { replace: true });
-  //     }
-  //   }, [isAuthenticated, navigate]);
+  useEffect(() => {
+    const user = getUserInformation();
+
+    if (!user) {
+      navigate('/sign-in');
+    }
+
+    if (user) {
+      setAuthenticated(true);
+    }
+  }, [isAuthenticated, navigate]);
+
+  useEffect(() => {
+    if (!authenticated && window.location.pathname === '/') {
+      navigate('/sign-in', { replace: true });
+    }
+  }, [authenticated, navigate]);
 
   return useRoutes([
     {
@@ -90,28 +122,70 @@ export function Router() {
       ),
       children: [
         {
-          element: <Dashboard />,
+          element: (
+            <ProtectedRoute
+              isAuthenticated={authenticated}
+              requiredRoles={[ADMIN_ROLE]}
+            >
+              <Dashboard />
+            </ProtectedRoute>
+          ),
           index: true,
         },
         {
           path: 'user',
-          element: <UserManager />,
+          element: (
+            <ProtectedRoute
+              isAuthenticated={authenticated}
+              requiredRoles={[ADMIN_ROLE]}
+            >
+              <UserManager />
+            </ProtectedRoute>
+          ),
         },
         {
           path: 'course',
-          element: <Dashboard />,
+          element: (
+            <ProtectedRoute
+              isAuthenticated={authenticated}
+              requiredRoles={[ADMIN_ROLE]}
+            >
+              <Dashboard />
+            </ProtectedRoute>
+          ),
         },
         {
           path: 'chat',
-          element: <ChatPage />,
+          element: (
+            <ProtectedRoute
+              isAuthenticated={authenticated}
+              requiredRoles={[ADMIN_ROLE]}
+            >
+              <ChatPage />
+            </ProtectedRoute>
+          ),
         },
         {
           path: 'news',
-          element: <News />,
+          element: (
+            <ProtectedRoute
+              isAuthenticated={authenticated}
+              requiredRoles={[ADMIN_ROLE]}
+            >
+              <News />
+            </ProtectedRoute>
+          ),
         },
         {
           path: 'profile',
-          element: <ProfilePage />,
+          element: (
+            <ProtectedRoute
+              isAuthenticated={authenticated}
+              requiredRoles={[ADMIN_ROLE]}
+            >
+              <ProfilePage />
+            </ProtectedRoute>
+          ),
           children: [
             { path: 'account', element: <AccountComponent /> },
             { path: 'notifications', element: <NotificationComponent /> },

@@ -68,7 +68,8 @@ const userSlice = createSlice({
       })
       .addCase(createUserWithoutFirebase.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message || 'Tạo mới người dùng không thành công';
+        state.error =
+          action.error.message || 'Tạo mới người dùng không thành công';
       })
       .addCase(createUser.fulfilled, (state, action: PayloadAction<User>) => {
         state.users = [action.payload, ...state.users];

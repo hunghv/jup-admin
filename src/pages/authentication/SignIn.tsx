@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   TextField,
   Button,
@@ -18,6 +18,7 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 import { login } from '../../services';
 import { setCurrentUser } from '../../redux/userSlice';
+import { getUserInformation } from '../../common/localStorageHelper';
 
 const SignUpContainer = styled(Stack)(({ theme }) => ({
   height: 'calc((1 - var(--template-frame-height, 0)) * 100dvh)',
@@ -67,6 +68,15 @@ function SignIn() {
   const [error, setError] = useState('');
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = getUserInformation();
+    console.log(user);
+    if (!user) {
+      navigate('/sign-in');
+    }
+    navigate('/');
+  }, [navigate]);
 
   const handleEmailLogin = async (event: any) => {
     try {
