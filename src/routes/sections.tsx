@@ -74,7 +74,6 @@ export function Router() {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
-    
     const token = localStorage.getItem('accessToken');
     const isExpired = checkFirebaseToken(token);
     if (isExpired) {
@@ -117,9 +116,9 @@ export function Router() {
             >
               <Topbar />
               <Box sx={{ p: 3 }}>
-              <MasterDataProvider>
-                <MainLayout />
-              </MasterDataProvider>
+                <MasterDataProvider>
+                  <MainLayout />
+                </MasterDataProvider>
               </Box>
             </Box>
           </Box>

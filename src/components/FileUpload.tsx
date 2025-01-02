@@ -5,11 +5,14 @@ import { AppDispatch, RootState } from '../redux/store';
 import { uploadFile } from '../services';
 
 interface ImageUploaderProps {
-    handleImageChange: (url: string) => void;
-    handleUploaded: (url: string) => void;
-  }
+  handleImageChange: (url: string) => void;
+  handleUploaded: (url: string) => void;
+}
 
-const FileUpload: React.FC<ImageUploaderProps> = ({ handleImageChange, handleUploaded }) => {
+const FileUpload: React.FC<ImageUploaderProps> = ({
+  handleImageChange,
+  handleUploaded,
+}) => {
   const [file, setFile] = useState<File | null>(null);
   const dispatch = useDispatch<AppDispatch>();
   const {
@@ -24,7 +27,7 @@ const FileUpload: React.FC<ImageUploaderProps> = ({ handleImageChange, handleUpl
       setFile(selectedFile);
       const imageUrl = URL.createObjectURL(selectedFile);
       handleImageChange(imageUrl);
-    }else {
+    } else {
       handleImageChange('');
     }
   };
@@ -46,7 +49,11 @@ const FileUpload: React.FC<ImageUploaderProps> = ({ handleImageChange, handleUpl
           onClick={handleUpload}
           disabled={loading}
         >
-          {loading ? <CircularProgress size={24} color="inherit" /> : 'upload file'}
+          {loading ? (
+            <CircularProgress size={24} color="inherit" />
+          ) : (
+            'upload file'
+          )}
         </Button>
       </div>
     </div>

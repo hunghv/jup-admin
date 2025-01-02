@@ -111,7 +111,8 @@ export const uploadFile = createAsyncThunk(
       const response = await apiClient.post('/api/v1/upload/image', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-        }});
+        },
+      });
 
       if (response.data.statusCode !== 200) {
         throw new Error('Tải lên tệp không thành công');

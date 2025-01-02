@@ -135,9 +135,9 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
   }
 
   const removeImage = () => {
-    setProfileImage('')
+    setProfileImage('');
     setPreviewImage('');
-  }
+  };
 
   function uploadedImage(url: string) {
     setProfileImage(url);
@@ -181,12 +181,17 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
             )}
             {!profileImage && (
               <>
-               <Avatar
+                <Avatar
                   alt={userData?.fullname}
                   src={previewImage}
                   sx={{ width: 80, height: 80, border: '3px solid #e0e0e0' }}
                 />
-                 <FileUpload handleImageChange={(x: string) => changeImage(x)} handleUploaded={(url) => {uploadedImage(url)}} />
+                <FileUpload
+                  handleImageChange={(x: string) => changeImage(x)}
+                  handleUploaded={(url) => {
+                    uploadedImage(url);
+                  }}
+                />
               </>
             )}
           </Box>
@@ -379,7 +384,11 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
                 boxShadow: 'none',
               }}
             >
-              {loading ? <CircularProgress size={24} color="inherit" /> : 'Save changes'}
+              {loading ? (
+                <CircularProgress size={24} color="inherit" />
+              ) : (
+                'Save changes'
+              )}
             </Button>
             {loading && <LoadingSpinner />}
           </Box>

@@ -6,6 +6,10 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import LanguageIcon from '@mui/icons-material/Language';
 import EmailIcon from '@mui/icons-material/Email';
 import PersonIcon from '@mui/icons-material/Person';
+import { ReactComponent as WomenIcon } from '../../assets/icon/women-toilet-color-icon.svg';
+import { ReactComponent as ManIcon } from '../../assets/icon/man-toilet-color-icon.svg';
+import { ReactComponent as UnkowIcon } from '../../assets/icon/genderqueer-genderless-person-color-icon.svg';
+
 import {
   AddAlarmRounded,
   AddToHomeScreen,
@@ -23,7 +27,7 @@ const AccountComponent: React.FC = () => {
 
   const navigate = useNavigate();
   if (!userData) {
-    console.log('AccountComponent')
+    console.log('AccountComponent');
     navigate('/sign-in');
   }
   const personalInfo = [
@@ -104,7 +108,20 @@ const AccountComponent: React.FC = () => {
     },
     {
       label: 'Gender',
-      value: userData.gender,
+      value:
+        userData.gender === 'F' ? (
+          <Box sx={{height: 20, width: 20, margin: 1}}>
+            <WomenIcon />
+          </Box>
+        ) : userData.gender === 'M' ? (
+          <Box sx={{height: 20, width: 20, margin: 1}}>
+            <ManIcon />
+          </Box>
+        ) : (
+          <Box sx={{height: 20, width: 20, margin: 1}}>
+            <UnkowIcon />
+          </Box>
+        ),
       icon: <PersonIcon color="warning" />,
     },
   ];

@@ -27,10 +27,10 @@ function App() {
 
   return (
     <div>
-        <Provider store={store}>
-          <Router />
-        </Provider>
-        <ToastContainer />
+      <Provider store={store}>
+        <Router />
+      </Provider>
+      <ToastContainer />
     </div>
   );
 }
