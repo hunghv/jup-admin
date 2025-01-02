@@ -6,9 +6,10 @@ import { uploadFile } from '../services';
 
 interface ImageUploaderProps {
     handleImageChange: (url: string) => void;
+    handleUploaded: (url: string) => void;
   }
 
-const FileUpload: React.FC<ImageUploaderProps> = ({ handleImageChange }) => {
+const FileUpload: React.FC<ImageUploaderProps> = ({ handleImageChange, handleUploaded }) => {
   const [file, setFile] = useState<File | null>(null);
   const dispatch = useDispatch<AppDispatch>();
   const {
@@ -28,9 +29,10 @@ const FileUpload: React.FC<ImageUploaderProps> = ({ handleImageChange }) => {
     }
   };
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     if (file) {
-      dispatch(uploadFile(file));
+      const response = await dispatch(uploadFile(file));
+      handleUploaded(response.payload);
     }
   };
 
@@ -44,20 +46,9 @@ const FileUpload: React.FC<ImageUploaderProps> = ({ handleImageChange }) => {
           onClick={handleUpload}
           disabled={loading}
         >
-          {loading ? <CircularProgress size={24} color="inherit" /> : 'Tải lên'}
+          {loading ? <CircularProgress size={24} color="inherit" /> : 'upload file'}
         </Button>
       </div>
-
-      {error && (
-        <Typography color="error" style={{ marginTop: '10px' }}>
-          {error}
-        </Typography>
-      )}
-      {uploadedFile && (
-        <Typography color="success" style={{ marginTop: '10px' }}>
-          Tải lên tệp thành công!
-        </Typography>
-      )}
     </div>
   );
 };

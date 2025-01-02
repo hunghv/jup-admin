@@ -18,7 +18,6 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 import { login } from '../../services';
 import { setCurrentUser } from '../../redux/userSlice';
-import { getUserInformation } from '../../common/localStorageHelper';
 import { isTokenExpired } from './isTokenExpired';
 
 const SignUpContainer = styled(Stack)(({ theme }) => ({

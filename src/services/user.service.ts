@@ -103,18 +103,19 @@ export const uploadFile = createAsyncThunk(
   'upload/file',
   async (file: File, { rejectWithValue }) => {
     try {
+      console.log(file);
       const formData = new FormData();
       formData.append('file', file);
 
       // API giả định của bạn để tải lên tệp
-      const response = await apiClient.post('/api/upload', {
-        body: formData,
-      });
+      const response = await apiClient.post('/api/v1/upload/image', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }});
 
-      if (response.status !== 200) {
+      if (response.data.statusCode !== 200) {
         throw new Error('Tải lên tệp không thành công');
       }
-
       const data = response.data.data;
       return data;
     } catch (error: any) {

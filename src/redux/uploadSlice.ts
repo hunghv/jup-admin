@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { uploadFile } from '../services';
+import { toastSuccess } from '../common';
 
 // Định nghĩa kiểu dữ liệu cho trạng thái
 interface UploadState {
@@ -28,10 +29,12 @@ const uploadSlice = createSlice({
       .addCase(uploadFile.fulfilled, (state, action: PayloadAction<any>) => {
         state.loading = false;
         state.file = action.payload;
+        toastSuccess('tải ảnh lên thành công');
       })
       .addCase(uploadFile.rejected, (state, action: PayloadAction<any>) => {
         state.loading = false;
         state.error = action.payload;
+        toastSuccess(action.payload);
       });
   },
 });

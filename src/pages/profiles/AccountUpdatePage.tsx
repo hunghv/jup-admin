@@ -10,6 +10,7 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  CircularProgress,
 } from '@mui/material';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -90,6 +91,7 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
   useEffect(() => {
     if (userData) {
       setProfileImage(userData.profilePictureUrl);
+      setValue('profilePictureUrl', userData.profilePictureUrl);
     }
   }, []);
 
@@ -102,7 +104,6 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
       setValue('address2', userData.address2);
       setValue('country', userData.country ?? '');
       setValue('dateOfBirth', userData.dateOfBirth);
-      setValue('profilePictureUrl', userData.profilePictureUrl);
       setValue('role', userData.role);
       setValue('accountStatus', userData.accountStatus);
       setValue('bio', userData.bio);
@@ -117,6 +118,8 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
   }, [userData, setValue]);
 
   const onFormSubmit: SubmitHandler<any> = async (data: any) => {
+    console.log(data);
+    data['profilePictureUrl'] = profileImage;
     delete data['email'];
     const userInfor = await dispatch(updateUser({ ...data, id: userData.id }));
     if (userInfor && !error) {
@@ -129,6 +132,16 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
 
   function changeImage(url: any) {
     setPreviewImage(url);
+  }
+
+  const removeImage = () => {
+    setProfileImage('')
+    setPreviewImage('');
+  }
+
+  function uploadedImage(url: string) {
+    setProfileImage(url);
+    setValue('profilePictureUrl', url);
   }
 
   return (
@@ -157,7 +170,7 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
                 />
 
                 <Button
-                  onClick={() => setProfileImage('')}
+                  onClick={() => removeImage()}
                   variant="text"
                   color="error"
                   sx={{ fontWeight: 'bold' }}
@@ -173,7 +186,7 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
                   src={previewImage}
                   sx={{ width: 80, height: 80, border: '3px solid #e0e0e0' }}
                 />
-                 <FileUpload handleImageChange={(x: string) => changeImage(x)} />
+                 <FileUpload handleImageChange={(x: string) => changeImage(x)} handleUploaded={(url) => {uploadedImage(url)}} />
               </>
             )}
           </Box>
@@ -366,7 +379,7 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
                 boxShadow: 'none',
               }}
             >
-              Save changes
+              {loading ? <CircularProgress size={24} color="inherit" /> : 'Save changes'}
             </Button>
             {loading && <LoadingSpinner />}
           </Box>

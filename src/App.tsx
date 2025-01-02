@@ -20,8 +20,6 @@ function App() {
       const expired = await isTokenExpired();
       if (expired) {
         navigate('/sign-in');
-      } else {
-        console.log('Token is still valid.');
       }
     };
     checkToken();
