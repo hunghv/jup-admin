@@ -25,7 +25,7 @@ import { ROWS_PER_PAGE, ROWS_PER_PAGE_OPTION } from '../../common/constant';
 import { deleteUser, fetchUsers, resetPassword } from '../../services';
 import { updateRowsPerPage } from '../../redux/userSlice';
 import KeyIcon from '@mui/icons-material/Key';
-import LoadingSpinner from '../../components/spinner/Sprinner';
+import LoadingSpinner from '../../components/Sprinner';
 
 interface UserTableProps {
   onEdit: (user: User) => void;

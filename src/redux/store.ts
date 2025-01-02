@@ -3,12 +3,15 @@ import userReducer from './userSlice';
 import authReducer from './authSlice';
 import chatReducer from './chatSlice';
 import commonReducer from './commonSlice';
+import uploadReducer from './uploadSlice';
+
 const store = configureStore({
   reducer: {
     users: userReducer,
     auth: authReducer,
     chat: chatReducer,
     common: commonReducer,
+    upload: uploadReducer,
   },
 });
 

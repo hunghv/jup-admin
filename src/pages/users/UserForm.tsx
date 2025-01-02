@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   Dialog,
   DialogTitle,
@@ -12,7 +12,7 @@ import {
   Select,
 } from '@mui/material';
 import { User } from '../../models/User';
-import { AppDispatch, RootState } from '../../redux/store';
+import { AppDispatch } from '../../redux/store';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import dayjs from 'dayjs';
@@ -21,7 +21,6 @@ import { createUserWithoutFirebase, updateUser } from '../../services';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { fetchMetadata } from '../../services/common.service';
 import { getLocalStorage } from '../../common/localStorageHelper';
 
 interface UserFormProps {
@@ -55,7 +54,6 @@ const UserForm: React.FC<UserFormProps> = ({
   selectedUser,
   setSelectedUser,
 }) => {
-  //   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
 
   const {

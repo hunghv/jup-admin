@@ -97,3 +97,28 @@ export const resetPassword = createAsyncThunk(
     return response.data;
   }
 );
+
+// Tạo action bất đồng bộ (async) để tải lên tệp
+export const uploadFile = createAsyncThunk(
+  'upload/file',
+  async (file: File, { rejectWithValue }) => {
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      // API giả định của bạn để tải lên tệp
+      const response = await apiClient.post('/api/upload', {
+        body: formData,
+      });
+
+      if (response.status !== 200) {
+        throw new Error('Tải lên tệp không thành công');
+      }
+
+      const data = response.data.data;
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);

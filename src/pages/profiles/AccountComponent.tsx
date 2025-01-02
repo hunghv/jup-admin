@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Box, Button, Card, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import {
-  getLocalStorage,
-  getUserInformation,
-} from '../../common/localStorageHelper';
+import { getUserInformation } from '../../common/localStorageHelper';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import LanguageIcon from '@mui/icons-material/Language';
 import EmailIcon from '@mui/icons-material/Email';
@@ -20,11 +17,9 @@ import {
   Phone,
 } from '@mui/icons-material';
 import AccountUpdatePage from './AccountUpdatePage';
-import { useMasterData } from '../../components/MasterDataProvider';
 
 const AccountComponent: React.FC = () => {
   const userData = getUserInformation();
-  const masterData = useMasterData();
 
   const navigate = useNavigate();
   if (!userData) {

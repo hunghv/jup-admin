@@ -26,7 +26,8 @@ import {
 } from '../../common/localStorageHelper';
 import { AppDispatch, RootState } from '../../redux/store';
 import * as yup from 'yup';
-import LoadingSpinner from '../../components/spinner/Sprinner';
+import LoadingSpinner from '../../components/Sprinner';
+import FileUpload from '../../components/FileUpload';
 
 const currentYear = dayjs();
 
@@ -60,12 +61,14 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const { loading, error } = useSelector((state: RootState) => state.users);
+  const [countries, setCountries] = useState<any[]>([]);
+  const [genders, setGenders] = useState<any[]>([]);
+  const [profileImage, setProfileImage] = useState('');
+  const [previewImage, setPreviewImage] = useState('');
 
   if (!userData) {
     navigate('/sign-in');
   }
-
-  const [profileImage, setProfileImage] = useState('');
 
   const {
     register,
@@ -75,9 +78,6 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
-  const [countries, setCountries] = useState<any[]>([]);
-  const [genders, setGenders] = useState<any[]>([]);
 
   useEffect(() => {
     const data = getLocalStorage('masterData');
@@ -91,7 +91,7 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
     if (userData) {
       setProfileImage(userData.profilePictureUrl);
     }
-  }, [userData]);
+  }, []);
 
   useEffect(() => {
     if (userData) {
@@ -127,6 +127,10 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
     changeViewModeAccount();
   };
 
+  function changeImage(url: any) {
+    setPreviewImage(url);
+  }
+
   return (
     <>
       <Box sx={{ width: { xs: '100%', md: '75%' } }}>
@@ -144,19 +148,34 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
           </Typography>
           <Divider sx={{ mb: 3 }} />
           <Box display="flex" alignItems="center" gap={2} mb={3}>
-            <Avatar
-              alt={userData?.fullname}
-              src={profileImage}
-              sx={{ width: 80, height: 80, border: '3px solid #e0e0e0' }}
-            />
-            <Button
-              onClick={() => setProfileImage('')}
-              variant="text"
-              color="error"
-              sx={{ fontWeight: 'bold' }}
-            >
-              Remove
-            </Button>
+            {profileImage && (
+              <>
+                <Avatar
+                  alt={userData?.fullname}
+                  src={profileImage}
+                  sx={{ width: 80, height: 80, border: '3px solid #e0e0e0' }}
+                />
+
+                <Button
+                  onClick={() => setProfileImage('')}
+                  variant="text"
+                  color="error"
+                  sx={{ fontWeight: 'bold' }}
+                >
+                  Remove
+                </Button>
+              </>
+            )}
+            {!profileImage && (
+              <>
+               <Avatar
+                  alt={userData?.fullname}
+                  src={previewImage}
+                  sx={{ width: 80, height: 80, border: '3px solid #e0e0e0' }}
+                />
+                 <FileUpload handleImageChange={(x: string) => changeImage(x)} />
+              </>
+            )}
           </Box>
           <Box
             sx={{
