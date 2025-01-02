@@ -27,10 +27,13 @@ export const MasterDataProvider: React.FC<MyComponentProps> = ({
       } else {
         try {
           const response = await apiClient.get(`/api/v1/master-data/All`);
-          if (response.status === 401){
-            navigate("/sign-in");
+          if (response.status === 401) {
+            navigate('/sign-in');
           }
-          localStorage.setItem('masterData', JSON.stringify(response.data.data));
+          localStorage.setItem(
+            'masterData',
+            JSON.stringify(response.data.data)
+          );
           setMasterData(response.data.data);
         } catch (error) {
           console.error('Error fetching master data:', error);

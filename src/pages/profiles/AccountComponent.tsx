@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Button, Card, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { getUserInformation } from '../../common/localStorageHelper';
+import {
+  getLocalStorage,
+  getUserInformation,
+} from '../../common/localStorageHelper';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import LanguageIcon from '@mui/icons-material/Language';
 import EmailIcon from '@mui/icons-material/Email';

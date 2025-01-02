@@ -20,7 +20,10 @@ import { updateUser } from '../../services';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getUserInformation } from '../../common/localStorageHelper';
+import {
+  getLocalStorage,
+  getUserInformation,
+} from '../../common/localStorageHelper';
 import { AppDispatch, RootState } from '../../redux/store';
 import * as yup from 'yup';
 import LoadingSpinner from '../../components/spinner/Sprinner';
@@ -72,6 +75,21 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
   } = useForm({
     resolver: yupResolver(schema),
   });
+
+  const [countries, setCountries] = useState<any[]>([]);
+  const [genders, setGenders] = useState<any[]>([]);
+
+  useEffect(() => {
+    const data = getLocalStorage('masterData');
+    if (data) {
+      setCountries(
+        data.filter((x: any) => x.category === 'country')
+      );
+      setGenders(
+        data.filter((x: any) => x.category === 'gender')
+      );
+    }
+  }, []);
 
   useEffect(() => {
     if (userData) {
@@ -180,12 +198,9 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
                 defaultValue={userData?.country}
                 error={!!errors.country}
               >
-                <MenuItem value="">Select Country</MenuItem>
-                <MenuItem value="USA">Mỹ</MenuItem>
-                <MenuItem value="Canada">Canada</MenuItem>
-                <MenuItem value="India">Ấn Độ</MenuItem>
-                <MenuItem value="VietNam">Việt Nam</MenuItem>
-                <MenuItem value="Australia">Úc</MenuItem>
+                {countries.map((row: any) => (
+                  <MenuItem value={row.key}>{row.value}</MenuItem>
+                ))}
               </Select>
             </FormControl>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -281,10 +296,9 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
                 defaultValue={userData?.gender}
                 error={!!errors.gender}
               >
-                <MenuItem value="">Chọn giới tính </MenuItem>
-                <MenuItem value="Unknow">Không biết</MenuItem>
-                <MenuItem value="Male">Nam</MenuItem>
-                <MenuItem value="Female">Nữ</MenuItem>
+                {genders.map((row: any) => (
+                  <MenuItem value={row.key}>{row.value}</MenuItem>
+                ))}
               </Select>
             </FormControl>
             <TextField
