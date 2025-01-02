@@ -30,6 +30,7 @@ import { RootState } from '../redux/store';
 import ProtectedRoute from '../components/ProtectedRoute';
 import { getUserInformation } from '../common/localStorageHelper';
 import { ADMIN_ROLE } from '../common';
+import { MasterDataProvider } from '../components/MasterDataProvider';
 
 // const HomePage = lazy(() => import('../pages/HomePage'));
 
@@ -73,12 +74,13 @@ export function Router() {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
+    
     const token = localStorage.getItem('accessToken');
     const isExpired = checkFirebaseToken(token);
     if (isExpired) {
       navigate('/sign-in');
     }
-  }, [navigate]);
+  }, []);
 
   useEffect(() => {
     const user = getUserInformation();
@@ -115,7 +117,9 @@ export function Router() {
             >
               <Topbar />
               <Box sx={{ p: 3 }}>
+              <MasterDataProvider>
                 <MainLayout />
+              </MasterDataProvider>
               </Box>
             </Box>
           </Box>

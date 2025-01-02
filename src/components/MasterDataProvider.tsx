@@ -19,6 +19,7 @@ export const MasterDataProvider: React.FC<MyComponentProps> = ({
 }) => {
   const [masterData, setMasterData] = useState<any>(null);
   const navigate = useNavigate();
+
   useEffect(() => {
     const loadMasterData = async () => {
       const storedData = localStorage.getItem('masterData');

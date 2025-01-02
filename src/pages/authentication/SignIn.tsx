@@ -19,6 +19,7 @@ import { AppDispatch } from '../../redux/store';
 import { login } from '../../services';
 import { setCurrentUser } from '../../redux/userSlice';
 import { getUserInformation } from '../../common/localStorageHelper';
+import { isTokenExpired } from './isTokenExpired';
 
 const SignUpContainer = styled(Stack)(({ theme }) => ({
   height: 'calc((1 - var(--template-frame-height, 0)) * 100dvh)',
@@ -70,10 +71,13 @@ function SignIn() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const user = getUserInformation();
-    if (user) {
-      navigate('/');
-    }
+    const checkToken = async () => {
+      const expired = await isTokenExpired();
+      if (!expired) {
+        navigate('/');
+      }
+    };
+    checkToken();
   }, [navigate]);
 
   const handleEmailLogin = async (event: any) => {

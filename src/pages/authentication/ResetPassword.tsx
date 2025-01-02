@@ -9,16 +9,19 @@ import {
   Divider,
 } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import { resetPassword } from '../../services';
+import { AppDispatch } from '../../redux/store';
+import { useDispatch } from 'react-redux';
 
 const ResetPassword: React.FC = () => {
   const [email, setEmail] = useState('');
-
+  const dispatch: AppDispatch = useDispatch();
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
   const handleSubmit = () => {
-    alert(`Recovery link sent to: ${email}`);
+    dispatch(resetPassword(email));
   };
 
   return (
@@ -125,3 +128,4 @@ const ResetPassword: React.FC = () => {
 };
 
 export default ResetPassword;
+

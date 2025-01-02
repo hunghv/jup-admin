@@ -23,6 +23,7 @@ const AccountComponent: React.FC = () => {
 
   const navigate = useNavigate();
   if (!userData) {
+    console.log('AccountComponent')
     navigate('/sign-in');
   }
   const personalInfo = [

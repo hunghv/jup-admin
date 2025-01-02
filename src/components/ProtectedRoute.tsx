@@ -14,6 +14,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   children,
 }) => {
   const logedUser = getUserInformation();
+  console.log(logedUser)
   if (!logedUser) {
     return <Navigate to="/sign-in" />;
   }
@@ -21,7 +22,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   if (!isAuthenticated) {
     return <Navigate to="/sign-in" />;
   }
-
+  
   if (
     requiredRoles &&
     (!logedUser?.role || !requiredRoles.includes(logedUser?.role))
