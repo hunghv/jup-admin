@@ -82,12 +82,8 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
   useEffect(() => {
     const data = getLocalStorage('masterData');
     if (data) {
-      setCountries(
-        data.filter((x: any) => x.category === 'country')
-      );
-      setGenders(
-        data.filter((x: any) => x.category === 'gender')
-      );
+      setCountries(data.filter((x: any) => x.category === 'country'));
+      setGenders(data.filter((x: any) => x.category === 'gender'));
     }
   }, []);
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Dialog,
@@ -22,6 +22,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { fetchMetadata } from '../../services/common.service';
+import { getLocalStorage } from '../../common/localStorageHelper';
 
 interface UserFormProps {
   open: boolean;
@@ -113,15 +114,16 @@ const UserForm: React.FC<UserFormProps> = ({
   //       isActive: event.target.checked,
   //     });
   //   };
-
-  const { countries, genders } = useSelector(
-    (state: RootState) => state.common
-  );
+  const [countries, setCountries] = useState<any[]>([]);
+  const [genders, setGenders] = useState<any[]>([]);
 
   useEffect(() => {
-    dispatch(fetchMetadata('country'));
-    dispatch(fetchMetadata('gender'));
-  }, [dispatch]);
+    const data = getLocalStorage('masterData');
+    if (data) {
+      setCountries(data.filter((x: any) => x.category === 'country'));
+      setGenders(data.filter((x: any) => x.category === 'gender'));
+    }
+  }, []);
 
   const onFormSubmit: SubmitHandler<any> = (data: any) => {
     if (selectedUser?.id) {
