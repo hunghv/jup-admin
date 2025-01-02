@@ -88,10 +88,9 @@ export function Router() {
 
     if (user) {
       setAuthenticated(true);
-    }else{
+    } else {
       setAuthenticated(false);
     }
-    
   }, [isAuthenticated, navigate]);
 
   useEffect(() => {

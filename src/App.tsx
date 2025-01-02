@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { setNavigateFunction } from './utils/axiosConfig';
 import { isTokenExpired } from './pages/authentication/isTokenExpired';
+import { MasterDataProvider } from './components/MasterDataProvider';
 
 function App() {
   const navigate = useNavigate();
@@ -29,10 +30,12 @@ function App() {
 
   return (
     <div>
-      <Provider store={store}>
-        <Router />
-      </Provider>
-      <ToastContainer />
+      <MasterDataProvider>
+        <Provider store={store}>
+          <Router />
+        </Provider>
+        <ToastContainer />
+      </MasterDataProvider>
     </div>
   );
 }

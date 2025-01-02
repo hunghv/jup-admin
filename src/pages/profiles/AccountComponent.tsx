@@ -17,9 +17,12 @@ import {
   Phone,
 } from '@mui/icons-material';
 import AccountUpdatePage from './AccountUpdatePage';
+import { useMasterData } from '../../components/MasterDataProvider';
 
 const AccountComponent: React.FC = () => {
   const userData = getUserInformation();
+  const masterData = useMasterData();
+
   const navigate = useNavigate();
   if (!userData) {
     navigate('/sign-in');
