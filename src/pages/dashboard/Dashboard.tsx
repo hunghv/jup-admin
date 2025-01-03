@@ -11,6 +11,7 @@ import {
 import { styled } from '@mui/system';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import SortIcon from '@mui/icons-material/Sort';
+import { Create } from '@mui/icons-material';
 
 const products = [
   {
@@ -123,6 +124,9 @@ function Dashboard() {
             Filters
           </Button>
           <Button endIcon={<SortIcon />}>Sort By: Featured</Button>
+          <Button startIcon={<Create />} sx={{ marginLeft: 2 }}>
+            Add Course
+          </Button>
         </Box>
       </HeaderSection>
 
@@ -139,7 +143,7 @@ function Dashboard() {
       >
         {displayedProducts.map((product, index) => (
           <ProductCard key={index}>
-            {product.badge && <BadgeLabel>{product.badge}</BadgeLabel>}
+            {/* {product.badge && <BadgeLabel>{product.badge}</BadgeLabel>} */}
             <CardMedia
               component="img"
               height="140"
