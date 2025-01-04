@@ -12,6 +12,7 @@ import { styled } from '@mui/system';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import SortIcon from '@mui/icons-material/Sort';
 import { Create } from '@mui/icons-material';
+import CourseCreateForm from './CourseCreateForm';
 
 const products = [
   {
@@ -144,6 +145,7 @@ function CourseManager() {
         }}
         gap={2}
       >
+        <CourseCreateForm open={isFormOpen} onClose={handleCloseForm} />
         {displayedProducts.map((product, index) => (
           <ProductCard key={index}>
             {/* {product.badge && <BadgeLabel>{product.badge}</BadgeLabel>} */}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Button, Card, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { getUserInformation } from '../../common/localStorageHelper';
@@ -21,99 +21,108 @@ import {
   Phone,
 } from '@mui/icons-material';
 import AccountUpdatePage from './AccountUpdatePage';
+import { User } from '../../models/User';
 
 const AccountComponent: React.FC = () => {
-  const userData = getUserInformation();
+  const [userData, setUserData] = useState<User>();
 
   const navigate = useNavigate();
-  if (!userData) {
-    console.log('AccountComponent');
-    navigate('/sign-in');
-  }
+
+  useEffect(()=>{
+    const logedUser = getUserInformation();
+    console.log(logedUser);
+    if (!logedUser) {
+      navigate('/sign-in');
+    }else{
+      setUserData(logedUser);
+    }
+
+  }, []);
+
   const personalInfo = [
     {
       label: 'Full Name',
-      value: userData.fullname,
+      value: userData?.fullname,
       icon: <PersonIcon color="warning" />,
     },
     {
       label: 'email',
-      value: userData.email,
+      value: userData?.email,
       icon: <EmailIcon color="warning" />,
     },
     {
       label: 'Phone Number',
-      value: userData.phone,
+      value: userData?.phone,
       icon: <Phone color="warning" />,
     },
     {
       label: 'Address 1',
-      value: userData.address1,
+      value: userData?.address1,
       icon: <AddToHomeScreen color="warning" />,
     },
     {
       label: 'Address 2',
-      value: userData.address2,
+      value: userData?.address2,
       icon: <AddAlarmRounded color="warning" />,
     },
     {
       label: 'Country',
-      value: userData.country,
+      value: userData?.country,
       icon: <LanguageIcon color="warning" />,
     },
     {
       label: 'Date Of Birth',
-      value: userData.dateOfBirth,
+      value: userData?.dateOfBirth,
       icon: <CalendarTodayIcon color="warning" />,
     },
     {
       label: 'Role',
-      value: userData.role,
+      value: userData?.role,
       icon: <PermIdentityRounded color="warning" />,
     },
     {
       label: 'Account Status',
-      value: userData.accountStatus,
+      value: userData?.accountStatus,
       icon: <PersonIcon color="warning" />,
     },
     {
       label: 'Company',
-      value: userData.company,
+      value: userData?.company,
       icon: <CommentBank color="warning" />,
     },
     {
       label: 'City',
-      value: userData.city,
+      value: userData?.city,
       icon: <LocationCityOutlined color="warning" />,
     },
     {
       label: 'Occupation',
-      value: userData.occupation,
+      value: userData?.occupation,
       icon: <LocationCityOutlined color="warning" />,
     },
     {
       label: 'Twitter Profile',
-      value: userData.twitterProfile,
+      value: userData?.twitterProfile,
       icon: <CommentBank color="warning" />,
     },
     {
       label: 'Linkedin Profile',
-      value: userData.linkedinProfile,
+      value: userData?.linkedinProfile,
       icon: <PermIdentityRounded color="warning" />,
     },
     {
       label: 'Bio',
-      value: userData.bio,
+      value: userData?.bio,
       icon: <BiotechOutlined color="warning" />,
     },
     {
       label: 'Gender',
       value:
-        userData.gender === 'F' ? (
+        userData?.gender === 'F' ? (
           <Box sx={{ height: 20, width: 20, margin: 1 }}>
             <WomenIcon />
           </Box>
-        ) : userData.gender === 'M' ? (
+        ) : userData?.gender === 'M' ? (
           <Box sx={{ height: 20, width: 20, margin: 1 }}>
             <ManIcon />
           </Box>

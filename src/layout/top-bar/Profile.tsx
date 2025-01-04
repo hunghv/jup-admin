@@ -29,18 +29,22 @@ const ProfileDropdown: React.FC = () => {
   };
 
   const { isAuthenticated } = useSelector((state: RootState) => state.users);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const user = getUserInformation();
-    setCurrentUser(user);
-  }, [isAuthenticated]);
+    if (!user) {
+      navigate('/sign-in');
+    }else{
+      setCurrentUser(user);
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-  const navigate = useNavigate();
-
+ 
   function handleMenuClose(path: string): void {
     if (path === '/logout') {
       localStorage.clear();
@@ -77,10 +81,10 @@ const ProfileDropdown: React.FC = () => {
       >
         <Box sx={{ paddingX: 2, paddingY: 1 }}>
           <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-            Hi {currentUser.fullname}!
+            Hi {currentUser?.fullname}!
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {currentUser.role}
+            {currentUser?.role}
           </Typography>
         </Box>
         <Divider />

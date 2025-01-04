@@ -149,7 +149,7 @@ const UserForm: React.FC<UserFormProps> = ({
   };
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth="md">
       <DialogTitle>
         <h3>{selectedUser ? 'Edit User' : 'Add User'}</h3>
       </DialogTitle>
@@ -313,10 +313,10 @@ const UserForm: React.FC<UserFormProps> = ({
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} color="secondary">
+        <Button variant="contained"  onClick={onClose} color="secondary">
           Cancel
         </Button>
-        <Button onClick={handleSubmit(onFormSubmit)} color="primary">
+        <Button variant="contained"  onClick={handleSubmit(onFormSubmit)} color="primary">
           {selectedUser ? 'Update' : 'Add'}
         </Button>
       </DialogActions>

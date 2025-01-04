@@ -13,3 +13,5 @@ npm i redux react-redux axios @reduxjs/toolkit
 // Json server
 npm install json-server
 npx json-server db.json --port 4000
+
+ maxWidth="lg" // Đặt chiều rộng tối đa (lg, md, sm, xs, xl hoặc false để tự động)
