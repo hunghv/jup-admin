@@ -110,15 +110,15 @@ const AccountComponent: React.FC = () => {
       label: 'Gender',
       value:
         userData.gender === 'F' ? (
-          <Box sx={{height: 20, width: 20, margin: 1}}>
+          <Box sx={{ height: 20, width: 20, margin: 1 }}>
             <WomenIcon />
           </Box>
         ) : userData.gender === 'M' ? (
-          <Box sx={{height: 20, width: 20, margin: 1}}>
+          <Box sx={{ height: 20, width: 20, margin: 1 }}>
             <ManIcon />
           </Box>
         ) : (
-          <Box sx={{height: 20, width: 20, margin: 1}}>
+          <Box sx={{ height: 20, width: 20, margin: 1 }}>
             <UnkowIcon />
           </Box>
         ),

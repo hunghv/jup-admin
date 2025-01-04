@@ -31,6 +31,7 @@ import ProtectedRoute from '../components/ProtectedRoute';
 import { getUserInformation } from '../common/localStorageHelper';
 import { ADMIN_ROLE } from '../common';
 import { MasterDataProvider } from '../components/MasterDataProvider';
+import CourseManager from '../pages/course-manager/CourseManager';
 
 // const HomePage = lazy(() => import('../pages/HomePage'));
 
@@ -154,7 +155,7 @@ export function Router() {
               isAuthenticated={authenticated}
               requiredRoles={[ADMIN_ROLE]}
             >
-              <Dashboard />
+              <CourseManager />
             </ProtectedRoute>
           ),
         },
