@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Button, CircularProgress } from '@mui/material';
 import React from 'react';
 
 interface ChildProps {
@@ -8,6 +8,7 @@ interface ChildProps {
   secondColor?: any;
   shadowColor?: any;
   height?: any;
+  loading?: boolean;
 }
 
 const GradientButton: React.FC<ChildProps> = ({
@@ -17,6 +18,7 @@ const GradientButton: React.FC<ChildProps> = ({
   secondColor,
   height,
   title,
+  loading = false,
 }) => {
   function handleSubmit(): void {
     onClick();
@@ -38,7 +40,7 @@ const GradientButton: React.FC<ChildProps> = ({
         },
       }}
     >
-      {title}
+      {loading ? <CircularProgress size={24} color="inherit" /> : title }
     </Button>
   );
 };

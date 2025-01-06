@@ -122,17 +122,6 @@ const CourseCreateForm: React.FC<CourseCreateFormProps> = ({
 
           {imagePreview && (
             <>
-              {/* <IconButton
-              onClick={handleRemoveImage}
-              sx={{
-                position: 'absolute',
-                top: 140,
-                right: 420,
-                backgroundColor: 'rgba(255, 255, 255, 0.8)',
-              }}
-            >
-              <CloseIcon />
-            </IconButton> */}
               <Box sx={{ textAlign: 'center' }}>
                 <img
                   src={imagePreview}
@@ -265,7 +254,7 @@ const CourseCreateForm: React.FC<CourseCreateFormProps> = ({
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose} color="secondary">
+          <Button onClick={onClose} color="secondary" disabled={loading}>
             Cancel
           </Button>
           <GradientButton
@@ -275,6 +264,7 @@ const CourseCreateForm: React.FC<CourseCreateFormProps> = ({
             title={'save'}
             onClick={handleSubmit(onFormSubmit)}
             height={36}
+            loading= {loading}
           ></GradientButton>
         </DialogActions>
       </Dialog>
