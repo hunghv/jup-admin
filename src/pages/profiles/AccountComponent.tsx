@@ -30,13 +30,12 @@ const AccountComponent: React.FC = () => {
 
   useEffect(() => {
     const logedUser = getUserInformation();
-    console.log(logedUser);
     if (!logedUser) {
       navigate('/sign-in');
     } else {
       setUserData(logedUser);
     }
-  }, []);
+  }, [navigate]);
 
   const personalInfo = [
     {
@@ -137,6 +136,12 @@ const AccountComponent: React.FC = () => {
   const [isEdit, setIsEdit] = useState(false);
 
   const changeMode = () => {
+    const logedUser = getUserInformation();
+    if (!logedUser) {
+      navigate('/sign-in');
+    } else {
+      setUserData(logedUser);
+    }
     setIsEdit(!isEdit);
   };
 

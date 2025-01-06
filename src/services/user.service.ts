@@ -103,7 +103,6 @@ export const uploadFile = createAsyncThunk(
   'upload/file',
   async (file: File, { rejectWithValue }) => {
     try {
-      console.log(file);
       const formData = new FormData();
       formData.append('file', file);
 

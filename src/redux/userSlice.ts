@@ -89,7 +89,6 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(updateUser.fulfilled, (state, action: PayloadAction<any>) => {
-        console.log(action.payload);
         state.user = {
           ...action.payload,
           id: action.payload.id,

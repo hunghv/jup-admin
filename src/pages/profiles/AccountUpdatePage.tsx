@@ -29,6 +29,7 @@ import { AppDispatch, RootState } from '../../redux/store';
 import * as yup from 'yup';
 import LoadingSpinner from '../../components/Sprinner';
 import FileUpload from '../../components/FileUpload';
+import emitterInstance from '../../utils/emitterInstance';
 
 const currentYear = dayjs();
 
@@ -118,11 +119,11 @@ const AccountUpdatePage: React.FC<ChildProps> = ({ changeViewModeAccount }) => {
   }, [userData, setValue]);
 
   const onFormSubmit: SubmitHandler<any> = async (data: any) => {
-    console.log(data);
     data['profilePictureUrl'] = profileImage;
     delete data['email'];
     const userInfor = await dispatch(updateUser({ ...data, id: userData.id }));
     if (userInfor && !error) {
+      emitterInstance.emit('updateProfileData', 'Hello from Component A!');
       changeViewModeAccount();
     }
   };

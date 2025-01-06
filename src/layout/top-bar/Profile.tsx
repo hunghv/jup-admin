@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { getUserInformation } from '../../common/localStorageHelper';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
+import emitterInstance from '../../utils/emitterInstance';
 
 const ProfileDropdown: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -30,6 +31,19 @@ const ProfileDropdown: React.FC = () => {
 
   const { isAuthenticated } = useSelector((state: RootState) => state.users);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handler = (message: any) => {
+      const userData = getUserInformation();
+      setCurrentUser(userData);
+    };
+
+    emitterInstance.on('updateProfileData', handler);
+
+    return () => {
+      emitterInstance.off('updateProfileData', handler);
+    };
+  }, []);
 
   useEffect(() => {
     const user = getUserInformation();
