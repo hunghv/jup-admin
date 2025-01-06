@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import apiClient from '../utils/axiosConfig';
-import { toastError } from '../common';
+import { toastError, toastSuccess } from '../common';
 
 export const fetchCourse = createAsyncThunk(
   'course/fetchCourses',
@@ -32,11 +32,13 @@ export const createCourse = createAsyncThunk(
           'Content-Type': 'multipart/form-data',
         },
       });
-
-      if (response.status === 200 || response.status === 201)
+      console.log(response)
+      if (response.status === 200 || response.status === 201) {
+        toastSuccess('Tạo mới khoá học thành công');
         return {
           data: response.data.data,
         };
+      }
       else{
         toastError(response.data.message || 'Fetch metada has error');
       }

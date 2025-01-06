@@ -49,7 +49,6 @@ const courseSlice = createSlice({
       .addCase(createCourse.fulfilled, (state, action: PayloadAction<any>) => {
         state.loading = false;
         state.courses = [...state.courses, action.payload];
-        toastSuccess('Tạo mới khoá học thành công');
       })
       .addCase(createCourse.rejected, (state, action: PayloadAction<any>) => {
         state.loading = false;
