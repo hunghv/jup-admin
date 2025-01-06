@@ -17,6 +17,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 import { createCourse } from '../../services/course.service';
+import { CourseModel } from '../../models/CourseModel';
 
 interface CourseCreateFormProps {
   open: boolean;
@@ -66,8 +67,7 @@ const CourseCreateForm: React.FC<CourseCreateFormProps> = ({
   const [fileUpload, setFileUpload] = useState<any>(null);
   const dispatch: AppDispatch = useDispatch();
 
-  const onFormSubmit: SubmitHandler<any> = async (data: any) => {
-    console.log(data);
+  const onFormSubmit: SubmitHandler<any> = async (data: CourseModel) => {
     const response = await dispatch(
       createCourse({ file: fileUpload, data: data })
     );

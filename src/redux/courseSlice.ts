@@ -27,15 +27,15 @@ const courseSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-    .addCase(fetchCourse.pending, (state) => {
+      .addCase(fetchCourse.pending, (state) => {
         state.loading = true;
       })
       .addCase(fetchCourse.fulfilled, (state, action: PayloadAction<any>) => {
         console.log('hello', action);
         state.loading = false;
-        if(action.payload) {
-            state.courses = action.payload.data;
-            state.total = action.payload.total;
+        if (action.payload) {
+          state.courses = action.payload.data;
+          state.total = action.payload.total;
         }
       })
       .addCase(fetchCourse.rejected, (state, action: PayloadAction<any>) => {
