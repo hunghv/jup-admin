@@ -9,13 +9,14 @@ import {
   styled,
   Card,
   Stack,
+  CircularProgress,
 } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { SitemarkIcon } from './CustomIcons';
 import { auth } from './firebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../redux/store';
 import { login } from '../../services';
 import { setCurrentUser } from '../../redux/userSlice';
 import { isTokenExpired } from './isTokenExpired';
@@ -68,7 +69,7 @@ function SignIn() {
   const [error, setError] = useState('');
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
-
+  const { loading } = useSelector((state: RootState) => state.auth);
   useEffect(() => {
     const checkToken = async () => {
       const expired = await isTokenExpired();
@@ -160,7 +161,11 @@ function SignIn() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign In
+                {loading ? (
+                  <CircularProgress size={24} color="inherit" />
+                ) : (
+                  'Sign In'
+                )}
               </Button>
             </Box>
           </Box>

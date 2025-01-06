@@ -35,7 +35,7 @@ const ProfileDropdown: React.FC = () => {
     const user = getUserInformation();
     if (!user) {
       navigate('/sign-in');
-    }else{
+    } else {
       setCurrentUser(user);
     }
   }, [isAuthenticated, navigate]);
@@ -44,7 +44,6 @@ const ProfileDropdown: React.FC = () => {
     setAnchorEl(null);
   };
 
- 
   function handleMenuClose(path: string): void {
     if (path === '/logout') {
       localStorage.clear();

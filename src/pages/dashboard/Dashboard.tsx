@@ -124,9 +124,6 @@ function Dashboard() {
             Filters
           </Button>
           <Button endIcon={<SortIcon />}>Sort By: Featured</Button>
-          <Button startIcon={<Create />} sx={{ marginLeft: 2 }}>
-            Add Course
-          </Button>
         </Box>
       </HeaderSection>
 

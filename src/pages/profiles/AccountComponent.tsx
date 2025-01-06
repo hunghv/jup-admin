@@ -28,15 +28,14 @@ const AccountComponent: React.FC = () => {
 
   const navigate = useNavigate();
 
-  useEffect(()=>{
+  useEffect(() => {
     const logedUser = getUserInformation();
     console.log(logedUser);
     if (!logedUser) {
       navigate('/sign-in');
-    }else{
+    } else {
       setUserData(logedUser);
     }
-
   }, []);
 
   const personalInfo = [

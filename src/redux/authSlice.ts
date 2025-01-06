@@ -30,6 +30,10 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(login.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
       .addCase(login.fulfilled, (state, action: PayloadAction<any>) => {
         state.user = {
           ...action.payload,

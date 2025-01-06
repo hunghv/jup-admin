@@ -313,10 +313,14 @@ const UserForm: React.FC<UserFormProps> = ({
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button variant="contained"  onClick={onClose} color="secondary">
+        <Button variant="contained" onClick={onClose} color="secondary">
           Cancel
         </Button>
-        <Button variant="contained"  onClick={handleSubmit(onFormSubmit)} color="primary">
+        <Button
+          variant="contained"
+          onClick={handleSubmit(onFormSubmit)}
+          color="primary"
+        >
           {selectedUser ? 'Update' : 'Add'}
         </Button>
       </DialogActions>
