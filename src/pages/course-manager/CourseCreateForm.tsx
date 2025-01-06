@@ -88,7 +88,6 @@ const CourseCreateForm: React.FC<CourseCreateFormProps> = ({
       <DialogTitle>
         <h3>Add New Course</h3>
 
-        {JSON.stringify(errors)}
       </DialogTitle>
       <DialogContent>
         <Box

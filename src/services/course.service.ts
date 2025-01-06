@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import apiClient from '../utils/axiosConfig';
 import { toastError, toastSuccess } from '../common';
+import { CourseModel } from '../models/CourseModel';
 
 export const fetchCourse = createAsyncThunk(
   'course/fetchCourses',
@@ -22,7 +23,7 @@ export const fetchCourse = createAsyncThunk(
 
 export const createCourse = createAsyncThunk(
   'course/createCourse',
-  async (params: { data: any; file: File }) => {
+  async (params: { data: CourseModel; file: File }) => {
     try {
       const formData = new FormData();
       formData.append('file', params.file);

@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import LoadingSpinner from '../../components/Sprinner';
 import { fetchCourse } from '../../services/course.service';
+import CurrencyFormatter from '../../components/CurrencyFormatter';
 
 const ProductCard = styled(Card)(({ theme }) => ({
   position: 'relative',
@@ -71,12 +72,12 @@ function CourceList() {
             <CardMedia
               component="img"
               height="140"
-              image={product?.image}
-              alt={product?.name}
+              image={product?.thumnailUrl}
+              alt={product?.title}
             />
             <CardContent>
               <Typography variant="subtitle1" fontWeight="bold">
-                {product?.name}
+                {product?.title}
               </Typography>
               {product?.originalPrice ? (
                 <Typography
@@ -88,10 +89,11 @@ function CourceList() {
                   variant="body2"
                 >
                   {product?.originalPrice}
+                  
                 </Typography>
               ) : null}
               <Typography variant="h6" color="primary">
-                {product?.price}
+                <CurrencyFormatter amount={product?.price} locale="vi-VN" currency="VND" />
               </Typography>
             </CardContent>
           </ProductCard>
