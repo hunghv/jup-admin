@@ -1,0 +1,60 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import apiClient from '../utils/axiosConfig';
+import { toastError } from '../common';
+
+export const fetchCourse = createAsyncThunk(
+  'course/fetchCourses',
+  async (params: {
+    page: number;
+    limit: number;
+  }) => {
+    try {
+      const response = await apiClient.get(`/api/v1/courses?page=${params.page ? params.page + 1 : 1}&limit=${params.limit ?? 10}`);
+      if (response.status === 200)
+        return {
+          data: response.data.data,
+          total: response.data.total
+        };
+    } catch (error: any) {
+      toastError(error.response.data || 'Fetch metada has error');
+    }
+  }
+);
+
+export const createCourse = createAsyncThunk(
+  'course/createCourse',
+  async (params: { data: any; file: File }) => {
+    try {
+      const formData = new FormData();
+      formData.append('file', params.file);
+      formData.append('data', params.data);
+      const response = await apiClient.post('/api/v1/courses', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (response.status !== 200)
+        return {
+          data: response.data.data,
+        };
+    } catch (error: any) {
+      toastError(error.response.data || 'Fetch metada has error');
+    }
+  }
+);
+
+export const updateCourse = createAsyncThunk(
+  'course/updateCourse',
+  async (category: string) => {
+    try {
+      const response = await apiClient.get(`/api/v1/master-data/${category}`);
+      return {
+        data: response.data.data,
+        category: category,
+      };
+    } catch (error: any) {
+      toastError(error.response.data || 'Fetch metada has error');
+    }
+  }
+);

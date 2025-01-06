@@ -8,14 +8,15 @@ import {
   FormControlLabel,
   Switch,
   TextField,
-  IconButton,
 } from '@mui/material';
 import React, { useState } from 'react';
 import GradientButton from '../../components/GradientButton';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import CloseIcon from '@mui/icons-material/Close'; // Icon Close
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../redux/store';
+import { createCourse } from '../../services/course.service';
 
 interface CourseCreateFormProps {
   open: boolean;
@@ -34,7 +35,6 @@ const validationSchema = Yup.object({
   saleRate: Yup.number()
     .min(0, 'Sale rate must be at least 0')
     .max(100, 'Sale rate cannot exceed 100'),
-  thumbnail: Yup.object().required('Thumbnail image is required'),
 });
 
 const CourseCreateForm: React.FC<CourseCreateFormProps> = ({
@@ -57,7 +57,6 @@ const CourseCreateForm: React.FC<CourseCreateFormProps> = ({
       isSale: false,
       saleRate: 0,
       price: 0,
-      thumbnail: {},
     },
     resolver: yupResolver(validationSchema),
   });
@@ -65,13 +64,21 @@ const CourseCreateForm: React.FC<CourseCreateFormProps> = ({
   const isSale = watch('isSale');
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [fileUpload, setFileUpload] = useState<any>(null);
+  const dispatch: AppDispatch = useDispatch();
 
-  const onFormSubmit: SubmitHandler<any> = (data: any) => {};
+  const onFormSubmit: SubmitHandler<any> = async (data: any) => {
+    console.log(data);
+    const response = await dispatch(
+      createCourse({ file: fileUpload, data: data })
+    );
+    if (response.payload) {
+      onClose();
+    }
+  };
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       setFileUpload(file);
-      setValue('thumbnail', imagePreview ?? ''); // Lưu file vào react-hook-form
       setImagePreview(URL.createObjectURL(file)); // Tạo preview URL
     }
   };
@@ -80,6 +87,8 @@ const CourseCreateForm: React.FC<CourseCreateFormProps> = ({
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="lg">
       <DialogTitle>
         <h3>Add New Course</h3>
+
+        {JSON.stringify(errors)}
       </DialogTitle>
       <DialogContent>
         <Box

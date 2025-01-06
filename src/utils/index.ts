@@ -1,1 +1,1 @@
-export * from './emitterInstance'
+export * from './emitterInstance';

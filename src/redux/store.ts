@@ -4,6 +4,7 @@ import authReducer from './authSlice';
 import chatReducer from './chatSlice';
 import commonReducer from './commonSlice';
 import uploadReducer from './uploadSlice';
+import courseReducer from './courseSlice';
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     chat: chatReducer,
     common: commonReducer,
     upload: uploadReducer,
+    course: courseReducer,
   },
 });
 
