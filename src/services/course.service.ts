@@ -33,14 +33,12 @@ export const createCourse = createAsyncThunk(
           'Content-Type': 'multipart/form-data',
         },
       });
-      console.log(response)
       if (response.status === 200 || response.status === 201) {
         toastSuccess('Tạo mới khoá học thành công');
         return {
-          data: response.data.data,
+          data: response.data,
         };
-      }
-      else{
+      } else {
         toastError(response.data.message || 'Fetch metada has error');
       }
     } catch (error: any) {

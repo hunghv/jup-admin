@@ -89,11 +89,14 @@ function CourceList() {
                   variant="body2"
                 >
                   {product?.originalPrice}
-                  
                 </Typography>
               ) : null}
               <Typography variant="h6" color="primary">
-                <CurrencyFormatter amount={product?.price} locale="vi-VN" currency="VND" />
+                <CurrencyFormatter
+                  amount={product?.price}
+                  locale="vi-VN"
+                  currency="VND"
+                />
               </Typography>
             </CardContent>
           </ProductCard>

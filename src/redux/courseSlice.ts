@@ -31,7 +31,6 @@ const courseSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchCourse.fulfilled, (state, action: PayloadAction<any>) => {
-        console.log('hello', action);
         state.loading = false;
         if (action.payload) {
           state.courses = action.payload.data;
@@ -48,7 +47,9 @@ const courseSlice = createSlice({
       })
       .addCase(createCourse.fulfilled, (state, action: PayloadAction<any>) => {
         state.loading = false;
-        state.courses = [...state.courses, action.payload];
+        if (action?.payload?.data) {
+          state.courses = [...state.courses, action?.payload?.data];
+        }
       })
       .addCase(createCourse.rejected, (state, action: PayloadAction<any>) => {
         state.loading = false;
