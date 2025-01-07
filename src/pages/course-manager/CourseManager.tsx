@@ -15,13 +15,10 @@ const HeaderSection = styled(Box)(({ theme }) => ({
 }));
 
 function CourseManager() {
-  const [selectedCourse, setSelectedCourse] = useState<any | null>(null);
-
   const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
 
   const handleOpenForm = () => setIsFormOpen(true);
   const handleCloseForm = () => {
-    setSelectedCourse(null);
     setIsFormOpen(false);
   };
   return (
@@ -41,7 +38,6 @@ function CourseManager() {
               startIcon={<Create />}
               sx={{ marginLeft: 2 }}
               onClick={() => {
-                setSelectedCourse(null);
                 handleOpenForm();
               }}
             >
