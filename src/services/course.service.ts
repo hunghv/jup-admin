@@ -39,10 +39,16 @@ export const createCourse = createAsyncThunk(
           data: response.data,
         };
       } else {
-        toastError(response.data.message || 'Có lỗi trong quá trình tạo khoá học. vui lòng liên hệ addmin');
+        toastError(
+          response.data.message ||
+            'Có lỗi trong quá trình tạo khoá học. vui lòng liên hệ addmin'
+        );
       }
     } catch (error: any) {
-      toastError(error.response.data || 'Có lỗi trong quá trình tạo khoá học. vui lòng liên hệ addmin');
+      toastError(
+        error.response.data ||
+          'Có lỗi trong quá trình tạo khoá học. vui lòng liên hệ addmin'
+      );
     }
   }
 );

@@ -273,7 +273,7 @@ const CourseCreateForm: React.FC<CourseCreateFormProps> = ({
             title={'save'}
             onClick={handleSubmit(onFormSubmit)}
             height={36}
-            loading= {loading}
+            loading={loading}
           ></GradientButton>
         </DialogActions>
       </Dialog>

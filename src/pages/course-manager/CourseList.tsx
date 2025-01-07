@@ -1,18 +1,23 @@
 import { useEffect, useState } from 'react';
 import { AppDispatch, RootState } from '../../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  Box,
-  CardMedia,
-  CardContent,
-  Typography,
-  Pagination,
-  Card,
-  styled,
-} from '@mui/material';
-import LoadingSpinner from '../../components/Sprinner';
+import { Box, Card, CardContent, CardMedia, Pagination, styled, Typography } from '@mui/material';
 import { fetchCourse } from '../../services/course.service';
+import { useNavigate } from 'react-router-dom';
 import CurrencyFormatter from '../../components/CurrencyFormatter';
+import LoadingSpinner from '../../components/Sprinner';
+
+const BadgeLabel = styled(Box)(({ theme }) => ({
+  position: 'absolute',
+  top: theme.spacing(1),
+  left: theme.spacing(1),
+  backgroundColor: 'red',
+  color: 'white',
+  padding: theme.spacing(0.5, 1),
+  borderRadius: theme.shape.borderRadius,
+  fontSize: '0.8rem',
+  fontWeight: 'bold',
+}));
 
 const ProductCard = styled(Card)(({ theme }) => ({
   position: 'relative',
@@ -21,10 +26,11 @@ const ProductCard = styled(Card)(({ theme }) => ({
   borderRadius: theme.spacing(1),
 }));
 
-function CourceList() {
+function CourseList() {
   const [page, setPage] = useState(1);
   const itemsPerPage = 12;
   const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
   const { courses, loading, error, total } = useSelector(
     (state: RootState) => state.course
   );
@@ -40,6 +46,10 @@ function CourceList() {
 
   const handleChangePage = (event: any, value: any) => {
     setPage(value);
+  };
+
+  const handleNavigate = (id: string) => {
+    navigate(`/course/${id}`);
   };
 
   return (
@@ -62,8 +72,18 @@ function CourceList() {
         gap={2}
       >
         {courses.map((product, index) => (
-          <ProductCard key={index}>
-            {/* {product.badge && <BadgeLabel>{product.badge}</BadgeLabel>} */}
+          <ProductCard
+            key={index}
+            onClick={() => handleNavigate(product.id)}
+            sx={{
+              ':hover': {
+                boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+                cursor: 'pointer',
+                transform: 'scale(1.02)',
+              },
+            }}
+          >
+            {product.isSale && <BadgeLabel>SALE {product.saleRate}%</BadgeLabel>} 
             <CardMedia
               component="img"
               height="140"
@@ -83,7 +103,11 @@ function CourceList() {
                   }}
                   variant="body2"
                 >
-                  {product?.originalPrice}
+                  <CurrencyFormatter
+                    amount={product?.originalPrice}
+                    locale="vi-VN"
+                    currency="VND"
+                  />
                 </Typography>
               ) : null}
               <Typography variant="h6" color="primary">
@@ -110,4 +134,4 @@ function CourceList() {
   );
 }
 
-export default CourceList;
+export default CourseList;

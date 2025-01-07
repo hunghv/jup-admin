@@ -5,7 +5,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import SortIcon from '@mui/icons-material/Sort';
 import { Create } from '@mui/icons-material';
 import CourseCreateForm from './CourseCreateForm';
-import CourceList from './CourceList';
+import CourseList from './CourseList';
 
 const HeaderSection = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -49,7 +49,7 @@ function CourseManager() {
             </Button>
           </Box>
         </HeaderSection>
-        <CourceList></CourceList>
+        <CourseList></CourseList>
         <CourseCreateForm open={isFormOpen} onClose={handleCloseForm} />
       </Box>
     </>

@@ -40,7 +40,7 @@ const GradientButton: React.FC<ChildProps> = ({
         },
       }}
     >
-      {loading ? <CircularProgress size={24} color="inherit" /> : title }
+      {loading ? <CircularProgress size={24} color="inherit" /> : title}
     </Button>
   );
 };

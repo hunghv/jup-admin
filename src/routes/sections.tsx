@@ -32,6 +32,7 @@ import { getUserInformation } from '../common/localStorageHelper';
 import { ADMIN_ROLE } from '../common';
 import { MasterDataProvider } from '../components/MasterDataProvider';
 import CourseManager from '../pages/course-manager/CourseManager';
+import CourseDetail from '../pages/course-manager/CourseDetail';
 
 // const HomePage = lazy(() => import('../pages/HomePage'));
 
@@ -156,6 +157,17 @@ export function Router() {
               requiredRoles={[ADMIN_ROLE]}
             >
               <CourseManager />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: 'course/:id',
+          element: (
+            <ProtectedRoute
+              isAuthenticated={authenticated}
+              requiredRoles={[ADMIN_ROLE]}
+            >
+              <CourseDetail />
             </ProtectedRoute>
           ),
         },
