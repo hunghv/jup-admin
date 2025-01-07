@@ -24,29 +24,22 @@ export const fetchCourse = createAsyncThunk(
 export const createCourse = createAsyncThunk(
   'course/createCourse',
   async (params: { data: CourseModel; file: File }) => {
-    try {
-      const formData = new FormData();
-      formData.append('file', params.file);
-      formData.append('data', JSON.stringify(params.data));
-      const response = await apiClient.post('/api/v1/courses', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      if (response.status === 200 || response.status === 201) {
-        toastSuccess('Tạo mới khoá học thành công');
-        return {
-          data: response.data,
-        };
-      } else {
-        toastError(
-          response.data.message ||
-            'Có lỗi trong quá trình tạo khoá học. vui lòng liên hệ addmin'
-        );
-      }
-    } catch (error: any) {
+    const formData = new FormData();
+    formData.append('file', params.file);
+    formData.append('data', JSON.stringify(params.data));
+    const response = await apiClient.post('/api/v1/courses', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    if (response.status === 200 || response.status === 201) {
+      toastSuccess('Tạo mới khoá học thành công');
+      return {
+        data: response.data,
+      };
+    } else {
       toastError(
-        error.response.data ||
+        response.data.message ||
           'Có lỗi trong quá trình tạo khoá học. vui lòng liên hệ addmin'
       );
     }
@@ -56,14 +49,20 @@ export const createCourse = createAsyncThunk(
 export const updateCourse = createAsyncThunk(
   'course/updateCourse',
   async (category: string) => {
-    try {
-      const response = await apiClient.get(`/api/v1/master-data/${category}`);
-      return {
-        data: response.data.data,
-        category: category,
-      };
-    } catch (error: any) {
-      toastError(error.response.data || 'Fetch metada has error');
-    }
+    const response = await apiClient.get(`/api/v1/courses/${category}`);
+    return {
+      data: response.data.data,
+      category: category,
+    };
+  }
+);
+
+export const findCourseById = createAsyncThunk(
+  'course/findCourseById',
+  async (id: string) => {
+    const response = await apiClient.get(`/api/v1/courses/${id}`);
+    return {
+      data: response.data,
+    };
   }
 );

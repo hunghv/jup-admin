@@ -1,6 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { toastError, toastSuccess } from '../common';
-import { createCourse, fetchCourse } from '../services/course.service';
+import {
+  createCourse,
+  fetchCourse,
+  findCourseById,
+} from '../services/course.service';
 
 interface UploadState {
   file: File | null;
@@ -27,6 +31,24 @@ const courseSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(findCourseById.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(
+        findCourseById.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.loading = false;
+          if (action.payload) {
+            state.curentCourse = action.payload.data;
+            console.log(state.curentCourse)
+          }
+        }
+      )
+      .addCase(findCourseById.rejected, (state, action: PayloadAction<any>) => {
+        state.loading = false;
+        state.error = action.payload;
+        toastError(action.payload);
+      })
       .addCase(fetchCourse.pending, (state) => {
         state.loading = true;
       })
@@ -49,6 +71,7 @@ const courseSlice = createSlice({
         state.loading = false;
         if (action?.payload?.data) {
           state.courses = [...state.courses, action?.payload?.data];
+          toastSuccess('Tạo khoá học thành công');
         }
       })
       .addCase(createCourse.rejected, (state, action: PayloadAction<any>) => {

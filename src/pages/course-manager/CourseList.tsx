@@ -14,6 +14,7 @@ import { fetchCourse } from '../../services/course.service';
 import { useNavigate } from 'react-router-dom';
 import CurrencyFormatter from '../../components/CurrencyFormatter';
 import LoadingSpinner from '../../components/Sprinner';
+import { ReactComponent as StarIcon } from '../../assets/icon/star-icon.svg';
 
 const BadgeLabel = styled(Box)(({ theme }) => ({
   position: 'absolute',
@@ -133,9 +134,20 @@ function CourseList() {
                     currency="VND"
                   />
                 </Typography>
-                <Typography variant="h6" color="secondary">
-                  {product.Rate ?? 0}
-                </Typography>
+                <Box
+                  sx={{
+                    width: 50,
+                    display: 'flex',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Typography variant="h6" color="secondary">
+                    {product.Rate ?? 0}
+                  </Typography>
+                  <Box sx={{ width: 18, margin: 1 }}>
+                    <StarIcon />
+                  </Box>
+                </Box>
               </Box>
             </CardContent>
           </ProductCard>
