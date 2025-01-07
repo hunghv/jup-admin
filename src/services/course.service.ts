@@ -39,10 +39,10 @@ export const createCourse = createAsyncThunk(
           data: response.data,
         };
       } else {
-        toastError(response.data.message || 'Fetch metada has error');
+        toastError(response.data.message || 'Có lỗi trong quá trình tạo khoá học. vui lòng liên hệ addmin');
       }
     } catch (error: any) {
-      toastError(error.response.data || 'Fetch metada has error');
+      toastError(error.response.data || 'Có lỗi trong quá trình tạo khoá học. vui lòng liên hệ addmin');
     }
   }
 );

@@ -25,13 +25,8 @@ function CourceList() {
   const [page, setPage] = useState(1);
   const itemsPerPage = 12;
   const dispatch: AppDispatch = useDispatch();
-  const { courses, loading, error } = useSelector(
+  const { courses, loading, error, total } = useSelector(
     (state: RootState) => state.course
-  );
-
-  const displayedProducts = courses.slice(
-    (page - 1) * itemsPerPage,
-    page * itemsPerPage
   );
 
   useEffect(() => {
@@ -66,7 +61,7 @@ function CourceList() {
         }}
         gap={2}
       >
-        {displayedProducts.map((product, index) => (
+        {courses.map((product, index) => (
           <ProductCard key={index}>
             {/* {product.badge && <BadgeLabel>{product.badge}</BadgeLabel>} */}
             <CardMedia
@@ -106,7 +101,7 @@ function CourceList() {
       {/* Pagination */}
       <Box display="flex" justifyContent="center" sx={{ marginTop: 4 }}>
         <Pagination
-          count={Math.ceil(courses.length / itemsPerPage)}
+          count={Math.ceil(total / itemsPerPage)}
           page={page}
           onChange={handleChangePage}
         />

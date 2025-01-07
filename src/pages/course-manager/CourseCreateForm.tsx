@@ -50,7 +50,7 @@ const CourseCreateForm: React.FC<CourseCreateFormProps> = ({
     control,
     watch,
     formState: { errors },
-    // setValue,
+    setValue,
   } = useForm({
     defaultValues: {
       title: '',
@@ -75,6 +75,15 @@ const CourseCreateForm: React.FC<CourseCreateFormProps> = ({
       createCourse({ file: fileUpload, data: data })
     );
     if (response.payload) {
+      setValue('title', '');
+      setValue('description', '');
+      setValue('duration', '');
+      setValue('isActive', true);
+      setValue('isSale', false);
+      setValue('saleRate', 0);
+      setValue('price', 0);
+      setImagePreview(null);
+      setFileUpload(null);
       onClose();
     }
   };
