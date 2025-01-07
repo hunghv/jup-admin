@@ -1,7 +1,15 @@
 import { useEffect, useState } from 'react';
 import { AppDispatch, RootState } from '../../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Card, CardContent, CardMedia, Pagination, styled, Typography } from '@mui/material';
+import {
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  Pagination,
+  styled,
+  Typography,
+} from '@mui/material';
 import { fetchCourse } from '../../services/course.service';
 import { useNavigate } from 'react-router-dom';
 import CurrencyFormatter from '../../components/CurrencyFormatter';
@@ -83,7 +91,9 @@ function CourseList() {
               },
             }}
           >
-            {product.isSale && <BadgeLabel>SALE {product.saleRate}%</BadgeLabel>} 
+            {product.isSale && (
+              <BadgeLabel>SALE {product.saleRate}%</BadgeLabel>
+            )}
             <CardMedia
               component="img"
               height="140"
@@ -110,13 +120,23 @@ function CourseList() {
                   />
                 </Typography>
               ) : null}
-              <Typography variant="h6" color="primary">
-                <CurrencyFormatter
-                  amount={product?.price}
-                  locale="vi-VN"
-                  currency="VND"
-                />
-              </Typography>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <Typography variant="h6" color="primary">
+                  <CurrencyFormatter
+                    amount={product?.price}
+                    locale="vi-VN"
+                    currency="VND"
+                  />
+                </Typography>
+                <Typography variant="h6" color="secondary">
+                  {product.Rate ?? 0}
+                </Typography>
+              </Box>
             </CardContent>
           </ProductCard>
         ))}
